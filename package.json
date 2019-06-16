@@ -1,0 +1,23 @@
+{
+  "name": "short-url",
+  "version": "1.0.0",
+  "description": "Short Url based on Node js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "short",
+    "url"
+  ],
+  "author": "Mohit Tanwani",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "mongo": "^0.1.0"
+  }
+}
