@@ -143,9 +143,11 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 					if(docs.length==0)
 					{
 						console.log("New User :)");
-						collection.insertOne(
+						const collections = db.collection('users');
+						collections.insertOne(
 						{
-							Name: "jjj"
+							Name: req.session.user.name,
+							Email:req.session.user.email
 							
 
 						},function(err,result){
@@ -181,21 +183,6 @@ app.get('/logout', (req, res) => {
 });
 
 
-MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
-		
-				const db = client.db(dbName);
-				const collection = db.collection('users');
-				
-				collection.insertOne(
-				{
-					
-					Name: "jjj",
-					Email:"Mohit"
-						
-				});
-				client.close();
-				
-			});
 
 
 //Httpserver Port Number 3000.
