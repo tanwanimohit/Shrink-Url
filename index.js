@@ -113,6 +113,33 @@ async function verify(token,req,res) {
 		if(response=="success")
 		{
 			req.session.user=user;
+			MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('users');
+				
+				collection.find({Email : user.email }).toArray(function(err,docs)
+				{
+					console.log(docs);
+					if(docs.length==0)
+					{
+						console.log("New User :)");
+						collection.insertOne(
+						{
+							Name: user.name,
+							Email : user.email,
+							UserId: user.userid,
+							Profile: user.picture,
+
+						},function(err,result){
+							
+						});
+					}	
+					
+				});
+				client.close();
+				
+			});
 			res.send("success");
 		}
 		else
@@ -152,20 +179,7 @@ app.get('/logout', (req, res) => {
     }
 });
 
-MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
-		console.log("Inside Add Questions \nAdding Data to :- \n");
-		const db = client.db(dbName);
-		const collection = db.collection('users');
-		
-		collection.find({}).toArray(function(err,docs)
-		{
-			console.log(docs);
-			
 
-		});	
-		client.close();
-		
-	});
 
 //Httpserver Port Number 3000.
 app.listen(process.env.PORT || 3000, function(){
