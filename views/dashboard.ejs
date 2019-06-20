@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>Dashboard</title>
+<meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Hello <%= data.name %> </h1>
+<img src="<%= data.picture %>"/>
+<h3><%= data.email %>
+<button onclick="signOut()" >Signout</button>
+ <div id="my-signin2" style="display:none"></div></center>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      window.open("/logout", '_self');
+    });
+	
+  }
+  
+	function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark'
+      });
+	}
+	  
+	  
+	
+</script>
+</body>
+</html>
