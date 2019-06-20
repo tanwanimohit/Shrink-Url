@@ -181,6 +181,22 @@ app.get('/logout', (req, res) => {
 });
 
 
+MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('users');
+				
+				collection.insertOne(
+				{
+					
+					Name: "jjj",
+					Email:"Mohit"
+						
+				});
+				client.close();
+				
+			});
+
 
 //Httpserver Port Number 3000.
 app.listen(process.env.PORT || 3000, function(){
