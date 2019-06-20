@@ -113,7 +113,26 @@ async function verify(token,req,res) {
 		if(response=="success")
 		{
 			req.session.user=user;
-			MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+			
+			res.send("success");
+		}
+		else
+		{
+
+			res.send("error");			
+		}
+	}
+	
+}
+
+
+app.get('/',sessionChecker, (req, res) => {
+	
+	res.render('home');
+});
+
+app.get('/Dashboard',LoginChecker, (req, res) => {
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
 				const collection = db.collection('users');
@@ -140,25 +159,6 @@ async function verify(token,req,res) {
 				client.close();
 				
 			});
-			res.send("success");
-		}
-		else
-		{
-
-			res.send("error");			
-		}
-	}
-	
-}
-
-
-app.get('/',sessionChecker, (req, res) => {
-	
-	res.render('home');
-});
-
-app.get('/Dashboard',LoginChecker, (req, res) => {
-	
 });
 
 app.post('/verifylogin', (req, res) => {
