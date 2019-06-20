@@ -68,7 +68,7 @@ var sessionChecker = (req, res, next) => {
 var LoginChecker = (req, res, next) => {
     if (req.session.user && req.cookies.user_sid) {
 		console.log(req.session.user);
-		res.render('dashboard',{data:req.session.user});
+		
 		
 		next();
     } else {
@@ -137,7 +137,7 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 				const db = client.db(dbName);
 				const collection = db.collection('users');
 				
-				collection.find({Email : req.session.user.email }).toArray(function(err,docs)
+				collection.find({ Email : req.session.user.email }).toArray(function(err,docs)
 				{
 					console.log(docs);
 					if(docs.length==0)
@@ -148,13 +148,16 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 							Name: req.session.user.name,
 							Email : req.session.user.email,
 							UserId: req.session.user.userid,
-							Profile: req.session.user.picture,
+							Profile: req.session.user.picture
 
 						},function(err,result){
-							
+								res.render('dashboard',{data:req.session.user});
 						});
 					}	
-					
+					else
+					{
+						res.render('dashboard',{data:req.session.user});
+					}
 				});
 				client.close();
 				
