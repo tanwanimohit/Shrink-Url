@@ -118,7 +118,7 @@ async function verify(token,req,res) {
 				const db = client.db(dbName);
 				const collection = db.collection('users');
 				
-				collection.find({Email : user.email }).toArray(function(err,docs)
+				collection.find({Email : req.session.user.email }).toArray(function(err,docs)
 				{
 					console.log(docs);
 					if(docs.length==0)
@@ -126,10 +126,10 @@ async function verify(token,req,res) {
 						console.log("New User :)");
 						collection.insertOne(
 						{
-							Name: user.name,
-							Email : user.email,
-							UserId: user.userid,
-							Profile: user.picture,
+							Name: req.session.user.name,
+							Email : req.session.user.email,
+							UserId: req.session.user.userid,
+							Profile: req.session.user.picture,
 
 						},function(err,result){
 							
