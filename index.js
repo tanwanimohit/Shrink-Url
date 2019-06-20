@@ -183,10 +183,10 @@ function insertData(req,res)
 				collection.insertOne(
 				{
 					
-					Name: req.session.name,
-					Email:req.session.email,
-					Profile:req.session.profile,
-					UserId:req.session.userid
+					Name: req.session.user.name,
+					Email:req.session.user.email,
+					Profile:req.session.user.profile,
+					UserId:req.session.user.userid
 						
 				},function(data,err)
 				{
