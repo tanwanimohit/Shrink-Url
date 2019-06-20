@@ -142,17 +142,7 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 					console.log(docs);
 					if(docs.length==0)
 					{
-						console.log("New User :)");
-						const collections = db.collection('users');
-						collections.insertOne(
-						{
-							Name: req.session.user.name,
-							Email:req.session.user.email
-							
-
-						},function(err,result){
-								res.render('dashboard',{data:req.session.user});
-						});
+						insertData(req);
 					}	
 					else
 					{
@@ -183,6 +173,26 @@ app.get('/logout', (req, res) => {
 });
 
 
+function insertData(req)
+{
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('users');
+				
+				collection.insertOne(
+				{
+					
+					Name: req.session.name,
+					Email:req.session.email,
+					Profile:req.session.profile,
+					UserId:req.session.userid
+						
+				});
+				client.close();
+				
+			});
+}
 
 
 //Httpserver Port Number 3000.
