@@ -145,10 +145,8 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 						console.log("New User :)");
 						collection.insertOne(
 						{
-							Name: req.session.user.name,
-							Email : req.session.user.email,
-							UserId: req.session.user.userid,
-							Profile: req.session.user.picture
+							Name: "jjj"
+							
 
 						},function(err,result){
 								res.render('dashboard',{data:req.session.user});
