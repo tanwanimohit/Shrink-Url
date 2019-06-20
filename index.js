@@ -142,7 +142,7 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 					console.log(docs);
 					if(docs.length==0)
 					{
-						insertData(req);
+						insertData(req,res);
 					}	
 					else
 					{
@@ -173,7 +173,7 @@ app.get('/logout', (req, res) => {
 });
 
 
-function insertData(req)
+function insertData(req,res)
 {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
@@ -188,6 +188,9 @@ function insertData(req)
 					Profile:req.session.profile,
 					UserId:req.session.userid
 						
+				},function(data,err)
+				{
+					res.render('dashboard',{data:req.session.user});
 				});
 				client.close();
 				
