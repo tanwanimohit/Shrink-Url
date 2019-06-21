@@ -131,6 +131,11 @@ app.get('/',sessionChecker, (req, res) => {
 	res.render('home');
 });
 
+app.get('/404', (req, res) => {
+	
+	res.render('404');
+});
+
 app.get('/Dashboard',LoginChecker, (req, res) => {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
@@ -147,6 +152,29 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 					else
 					{
 						res.render('dashboard',{data:req.session.user});
+					}
+				});
+				client.close();
+				
+			});
+});
+
+app.get('/:id',LoginChecker, (req, res) => {
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				var id=req.params.id;
+				collection.find({ linkkey : id }).toArray(function(err,docs)
+				{
+					console.log(docs);
+					if(docs.length==1)
+					{
+						res.redirect(docs.url);
+					}	
+					else
+					{
+						res.redirect('\404');
 					}
 				});
 				client.close();
@@ -185,7 +213,7 @@ function insertData(req,res)
 					
 					Name: req.session.user.name,
 					Email:req.session.user.email,
-					Profile:req.session.user.profile,
+					Profile:req.session.user.picture,
 					UserId:req.session.user.userid
 						
 				},function(data,err)
