@@ -164,7 +164,7 @@ app.get('/:id', (req, res) => {
 		
 				const db = client.db(dbName);
 				const collection = db.collection('links');
-				
+				var id=req.params.id;
 				collection.find({ linkkey : id }).toArray(function(err,docs)
 				{
 					console.log(docs);
