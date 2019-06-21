@@ -164,17 +164,17 @@ app.get('/:id', (req, res) => {
 		
 				const db = client.db(dbName);
 				const collection = db.collection('links');
-				var id=req.params.id;
+				
 				collection.find({ linkkey : id }).toArray(function(err,docs)
 				{
 					console.log(docs);
 					if(docs.length==1)
 					{
-						res.redirect(docs.url);
+						res.redirect(docs[0].url);
 					}	
 					else
 					{
-						res.redirect('\404');
+						res.redirect('/404');
 					}
 				});
 				client.close();
