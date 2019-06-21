@@ -159,7 +159,7 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 			});
 });
 
-app.get('/:id',LoginChecker, (req, res) => {
+app.get('/:id', (req, res) => {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
