@@ -131,10 +131,24 @@ app.get('/',sessionChecker, (req, res) => {
 	res.render('home');
 });
 
+// route for user logout
+app.get('/logout', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+        res.redirect('/');
+		
+	
+    } else {
+        res.redirect('/');
+    }
+});
+
+
 app.get('/404', (req, res) => {
 	
 	res.render('404');
 });
+
 
 app.get('/Dashboard',LoginChecker, (req, res) => {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
@@ -187,19 +201,6 @@ app.post('/verifylogin', (req, res) => {
 	var response=verify(req.body.token,req, res);
 	
 });
-
-// route for user logout
-app.get('/logout', (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.clearCookie('user_sid');
-        res.redirect('/');
-		
-	
-    } else {
-        res.redirect('/');
-    }
-});
-
 
 function insertData(req,res)
 {
