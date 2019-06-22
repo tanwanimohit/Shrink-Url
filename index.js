@@ -353,6 +353,7 @@ app.get('/:id', (req, res) => {
 function getrandom(no){
     var random_string = Math.random().toString(32).substring(2, no) + Math.random().toString(32).substring(2, 5);    
 	console.log(random_string);
+	return random_string;
 }
 
 
