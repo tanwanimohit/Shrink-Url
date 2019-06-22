@@ -236,17 +236,19 @@ function CheckURLdup(longurl,shorturl,req,res)
 
 function ShortURL(longurl,shorturl,req,res)
 {
+	shorturl=shorturl.replace(/[^a-zA-Z0-9 ]/g, "");
 	shorturl=shorturl.replace(" ","");
-	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" ")
+	var newshort=shorturl;
+	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" " || shorturl=='')
 	{
-		
+		console.log()
 		var t=2;
 		var temp=getrandom(t);
 		while(CheckAvailability(temp)==0)
 		{
 			temp=getrandom(t++);
 		}
-		shorturl=temp;
+		newshort=temp;
 	}
 	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
@@ -257,14 +259,14 @@ function ShortURL(longurl,shorturl,req,res)
 				collection.insertOne(
 				{
 					
-					linkkey: shorturl,
+					linkkey: newshort,
 					url:longurl,
 					owner:req.session.user.email,
 					status:'on'
 						
 				},function(data,err)
 				{
-					res.send('https://tinyfor.me/'+shorturl);
+					res.send('https://tinyfor.me/'+newshort);
 				});
 				client.close();
 				
