@@ -39,8 +39,8 @@
 	  
 	function shortURL()
 	{
-		var longurl=document.getElementById("long");
-		var shorturl=document.getElementById("short");
+		var longurl=document.getElementById("long").value;
+		var shorturl=document.getElementById("short").value;
 		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
 					
 					if(data=="error")
