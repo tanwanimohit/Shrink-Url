@@ -173,34 +173,127 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 			});
 });
 
-app.get('/:id', (req, res) => {
+
+
+app.post('/verifylogin', (req, res) => {
+	
+	verify(req.body.token,req, res);
+	
+});
+
+app.post('/shorturl', (req, res) => {
+	
+	var longurl=req.body.longurl;
+	var shorturl=req.body.shorturl;
+	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
 				const collection = db.collection('links');
-				var id=req.params.id;
-				collection.find({ linkkey : id }).toArray(function(err,docs)
+				
+				collection.find({ linkkey : shorturl }).toArray(function(err,docs)
 				{
 					console.log(docs);
-					if(docs.length==1)
+					if(docs.length==0)
 					{
-						res.redirect(docs[0].url);
+						CheckURLdup(longurl,shorturl,req,res);
 					}	
 					else
 					{
-						res.redirect('/404');
+						res.send("Try another Custom URL..");
 					}
 				});
 				client.close();
 				
-			});
+	});	
+	
+	
 });
 
-app.post('/verifylogin', (req, res) => {
+function CheckURLdup(longurl,shorturl,req,res)
+{
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.find({ url : longurl }).toArray(function(err,docs)
+				{
+					console.log(docs);
+					if(docs.length==1)
+					{
+						res.send(docs.linkkey)
+					}	
+					else
+					{
+						ShortURL(longurl,shorturl,req,res);
+					}
+				});
+				client.close();
+				
+	});	
+}
+
+function ShortURL(longurl,shorturl,req,res)
+{
+	if(shorturl==undefined || shorturl==null)
+	{
+		var t=2;
+		var temp=getrandom(t);
+		while(CheckAvailability(temp)==0)
+		{
+			temp=getrandom(t++);
+		}
+		shorturl=temp;
+	}
 	
-	var response=verify(req.body.token,req, res);
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.insertOne(
+				{
+					
+					linkkey: shorturl,
+					url:longurl,
+					owner:req.session.user.email,
+					status:'on'
+						
+				},function(data,err)
+				{
+					res.send('https://tinyfor.me/'+linkkey);
+				});
+				client.close();
+				
+			});
 	
-});
+	
+}
+
+function CheckAvailability(url)
+{
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.find({ linkkey : url }).toArray(function(err,docs)
+				{
+					console.log(docs);
+					if(docs.length==0)
+					{
+						return 1;
+					}	
+					else
+					{
+						return 0;
+					}
+				});
+				client.close();
+				
+	});
+}
 
 function insertData(req,res)
 {
@@ -224,6 +317,36 @@ function insertData(req,res)
 				client.close();
 				
 			});
+}
+
+
+app.get('/:id', (req, res) => {
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				var id=req.params.id;
+				collection.find({ linkkey : id , status : 'on'}).toArray(function(err,docs)
+				{
+					console.log(docs);
+					if(docs.length==1)
+					{
+						res.redirect(docs[0].url);
+					}	
+					else
+					{
+						res.redirect('/404');
+					}
+				});
+				client.close();
+				
+			});
+});
+
+
+function getrandom(no){
+    var random_string = Math.random().toString(32).substring(2, no) + Math.random().toString(32).substring(2, 5);    
+	console.log(random_string);
 }
 
 

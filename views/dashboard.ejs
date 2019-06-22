@@ -3,7 +3,7 @@
 <title>Dashboard</title>
 <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
@@ -13,6 +13,11 @@
 <h3><%= data.email %>
 <button onclick="signOut()" >Signout</button>
  <div id="my-signin2" style="display:none"></div></center>
+ 
+ <input type="text" id="long" placeholder="Enter Long URL Here" />
+<input type="text" id="short" placeholder="Short URL (Optional) " />
+<button value="Short URL" onclick="shortURL()">Short URL</button>
+<p id="shorturl"></p> 
 <script>
   function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -32,6 +37,23 @@
       });
 	}
 	  
+	function shortURL()
+	{
+		var longurl=document.getElementById("long");
+		var shorturl=document.getElementById("short");
+		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
+					
+					if(data=="error")
+					{	
+						alert("Something Went Wrong !");
+					}
+					else
+					{
+						document.getElementById("shorturl").innerHTML=data;
+					}
+			}
+			);
+	}
 	  
 	
 </script>
