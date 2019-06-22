@@ -241,7 +241,7 @@ function ShortURL(longurl,shorturl,req,res)
 	var newshort=shorturl;
 	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" " || shorturl=='')
 	{
-		console.log()
+		console.log("Generating Random URL...");
 		var t=2;
 		var temp=getrandom(t);
 		while(CheckAvailability(temp)==0)
@@ -249,6 +249,7 @@ function ShortURL(longurl,shorturl,req,res)
 			temp=getrandom(t++);
 		}
 		newshort=temp;
+		console.log("this is :"+newshort);
 	}
 	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
@@ -277,6 +278,7 @@ function ShortURL(longurl,shorturl,req,res)
 
 function CheckAvailability(temp)
 {
+	console.log("checking...");
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
