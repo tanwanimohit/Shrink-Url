@@ -222,7 +222,7 @@ function CheckURLdup(longurl,shorturl,req,res)
 					console.log(docs);
 					if(docs.length==1)
 					{
-						res.send('URL is already Created : https://tinyfor.me/'+docs.linkkey);
+						res.send('URL is already Created : https://tinyfor.me/'+docs[0].linkkey);
 					}	
 					else
 					{
