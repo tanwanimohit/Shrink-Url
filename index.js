@@ -222,7 +222,7 @@ function CheckURLdup(longurl,shorturl,req,res)
 					console.log(docs);
 					if(docs.length==1)
 					{
-						res.send(docs.linkkey)
+						res.send('URL is already Created : https://tinyfor.me/'+docs.linkkey);
 					}	
 					else
 					{
@@ -236,7 +236,7 @@ function CheckURLdup(longurl,shorturl,req,res)
 
 function ShortURL(longurl,shorturl,req,res)
 {
-	shorturl.replace(" ","");
+	shorturl=shorturl.replace(" ","");
 	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" ")
 	{
 		
@@ -273,14 +273,14 @@ function ShortURL(longurl,shorturl,req,res)
 	
 }
 
-function CheckAvailability(url)
+function CheckAvailability(temp)
 {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
 				const collection = db.collection('links');
 				
-				collection.find({ linkkey : url }).toArray(function(err,docs)
+				collection.find({ linkkey : temp }).toArray(function(err,docs)
 				{
 					console.log(docs);
 					if(docs.length==0)
