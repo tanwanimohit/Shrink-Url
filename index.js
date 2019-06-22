@@ -236,8 +236,10 @@ function CheckURLdup(longurl,shorturl,req,res)
 
 function ShortURL(longurl,shorturl,req,res)
 {
-	if(shorturl==undefined || shorturl==null)
+	shorturl.replace(" ","");
+	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" ")
 	{
+		
 		var t=2;
 		var temp=getrandom(t);
 		while(CheckAvailability(temp)==0)
@@ -262,7 +264,7 @@ function ShortURL(longurl,shorturl,req,res)
 						
 				},function(data,err)
 				{
-					res.send('https://tinyfor.me/'+linkkey);
+					res.send('https://tinyfor.me/'+shorturl);
 				});
 				client.close();
 				
