@@ -1,17 +1,61 @@
-<html lang="en">
-  <head>
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com">
+<html>
+<head>
 
-	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  </head>
-  <body>
-   <center>
-	 <div id="my-signin2"></div></center>
-    <script>
+<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	
-	  function renderButton() {
+<title>Tiny For me</title>
+<style>
+body{
+background : #2979ff;
+color:white;
+}
+h1{
+font-family: 'Luckiest Guy', cursive;
+font-size:70px;
+padding : 20px;
+}
+input[type='text']
+{
+border:0px;
+width:40%;
+height:4%;
+text-align:center;
+font-family: 'Noto Sans JP', sans-serif;
+font-size:20px;
+text-decoration:none;
+}
+input[type='button']
+{
+background:#002666;
+border:0px #002666;
+color:white;
+height:4%;
+padding: 0px 50px;
+font-family: 'Noto Sans JP', sans-serif;
+font-size:20px;
+}
+h2
+{
+font-family: 'Noto Sans JP', sans-serif;
+margin:30px;
+}
+</style>
+</head>
+<body>
+<center><h1>Tiny For Me!</h1>
+<input type="text" placeholder="Enter Long URL Here..." />
+<input type="button" value="Tiny!" />
+<h2> To get Custom Links And much More Facilties Please</h2>
+<div id="my-signin2"></div>
+
+<script>
+	function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
         'width': 240,
@@ -44,7 +88,8 @@
 			}
 			);
 		}
+</script>
 
-    </script>
-  </body>
+</center>
+</body>
 </html>
