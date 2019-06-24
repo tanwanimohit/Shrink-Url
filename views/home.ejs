@@ -8,50 +8,86 @@
 <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	
+
 <title>Tiny For me</title>
 <style>
-body{
+body
+{
 background : #2979ff;
 color:white;
 }
-h1{
+
+h1
+{
 font-family: 'Luckiest Guy', cursive;
-font-size:70px;
-padding : 20px;
+font-size:4.5em;
+padding : 15px;
 }
+
 input[type='text']
 {
 border:0px;
 width:40%;
 height:4%;
+margin:5px 0px;
 text-align:center;
 font-family: 'Noto Sans JP', sans-serif;
-font-size:20px;
+font-size:1.3em;
+min-width:300px;
 text-decoration:none;
 }
+
 input[type='button']
 {
 background:#002666;
 border:0px #002666;
 color:white;
 height:4%;
-padding: 0px 50px;
+margin:5px 0px;
+width:100px;
 font-family: 'Noto Sans JP', sans-serif;
-font-size:20px;
+font-size:1.3em;
 }
+
 h2
 {
 font-family: 'Noto Sans JP', sans-serif;
 margin:30px;
 }
+
+@media only screen and (max-width: 470px) {
+
+h1
+{
+font-size:3em;
+}
+input[type='text']
+{
+height:5%;
+font-size:1em;
+}
+input[type='button']
+{
+	
+height:5%;
+}
+
+h2
+{
+font-size:1.2em;	
+}
+
+}
+
 </style>
 </head>
 <body>
 <center><h1>Tiny For Me!</h1>
+<form>
 <input type="text" placeholder="Enter Long URL Here..." />
 <input type="button" value="Tiny!" />
-<h2> To get Custom Links And much More Facilties Please</h2>
+</form>
+<h2> To get Custom Links and much more facilties please</h2>
 <div id="my-signin2"></div>
 
 <script>
@@ -61,7 +97,7 @@ margin:30px;
         'width': 240,
         'height': 50,
         'longtitle': true,
-        'theme': 'dark',
+        'theme': 'light',
         'onsuccess': onSuccess,
         'onFailure': onFailure
       });
@@ -73,8 +109,8 @@ margin:30px;
 	  
 	  function onSuccess(googleUser) {
       
-	  var id_token = googleUser.getAuthResponse().id_token;
-	  $.post('/verifylogin',{token:id_token},function(data,status){
+		  var id_token = googleUser.getAuthResponse().id_token;
+		  $.post('/verifylogin',{token:id_token},function(data,status){
 					
 					if(data=="error")
 					{
