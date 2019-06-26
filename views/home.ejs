@@ -19,7 +19,7 @@
 <title>Tiny For me</title>
 <style>
 html,body {
-    height: 100%; /* Needed for container's min-height  */  
+    min-height: 100%; /* Needed for container's min-height  */  
 }
 
 body
@@ -105,6 +105,14 @@ margin-right: auto;
 .footer p
 {
 margin:0px;
+}
+
+@media only screen and (max-height: 400px) {
+.footer
+{
+display:none;
+}
+
 }
 </style>
 </head>
