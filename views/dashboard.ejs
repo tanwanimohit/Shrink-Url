@@ -21,12 +21,24 @@
 	{
 		font-family: 'Luckiest Guy';
 	}
+	form
+	{
+		padding:5px;
+		color:white;
+		
+	}
+	form h4
+	{
+	
+		color:white;
+		display:inline-block;
+	}
 	input[type='text']
 	{
 	border:0px;
 	width:40%;
 	min-height:4%;
-	margin:25px 0px;
+	margin:5px 0px;
 	text-align:center;
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size:1.3em;
@@ -40,8 +52,8 @@
 	border:0px #002666;
 	color:white;
 	min-height:4%;
-	margin:25px 0px;
-	width:100px;
+	margin:5px 0px;
+	width:150px;
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size:1.3em;
 	}
@@ -55,13 +67,13 @@
 	
 	input[type='text']
 	{
-	height:7%;
+	min-height:7%;
 	font-size:1em;
 	}
 	input[type='button']
 	{
 
-	height:7%;
+	min-height:7%;
 	}
 
 	
@@ -73,7 +85,7 @@
 <body  onload="startApp()">
 
 <nav class="navbar navbar-expand-sm bg-custom navbar-dark">
-  <a class="navbar-brand headfont" href="#" ><h4>Tinyforme!</h4></a>
+  <a class="navbar-brand headfont" style="margin-top:5px;" href="#" ><h4>Tinyforme!</h4></a>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="border:0px;">
         <img src="<%= data.picture %>" height="30" class="rounded-circle"/> 
@@ -98,17 +110,16 @@
 </nav>
 <div class="mainbody bg-custom text-center">
  <form>
-<input type="text" placeholder="Enter Long URL Here..." />
-<input type="button" value="Tiny it!" />
+<input type="text" id="long" placeholder="Enter Long URL Here..." /><br>
+<h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short" style="width:20%; min-width:150px" id="short" placeholder="Short URL (Optional) " /><br>
+<input type="button" onclick="shortURL() value="Tiny it!" />
 </form>
 
- 
+ <p id="shorturl"></p> 
 </div>
 
- <input type="text" id="long" placeholder="Enter Long URL Here" />
-<input type="text" id="short" placeholder="Short URL (Optional) " />
-<button value="Short URL" onclick="shortURL()">Short URL</button>
-<p id="shorturl"></p> 
+
+
 </body>
 <script>
   function signOut() {
