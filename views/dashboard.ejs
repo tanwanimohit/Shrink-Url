@@ -12,6 +12,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   <style>
 	.bg-custom
 	{
@@ -23,7 +24,7 @@
 	}
 	form
 	{
-		padding:5px;
+		padding:25px;
 		color:white;
 		
 	}
@@ -38,7 +39,7 @@
 	border:0px;
 	width:40%;
 	min-height:4%;
-	margin:5px 0px;
+	margin:8px 0px;
 	text-align:center;
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size:1.3em;
@@ -52,14 +53,14 @@
 	border:0px #002666;
 	color:white;
 	min-height:4%;
-	margin:5px 0px;
+	margin:8px 0px;
 	width:150px;
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size:1.3em;
 	}
 	.mainbody
 	{
-		height:150px;
+		height:200px;
 	}
 
 	@media only screen and (max-width: 470px) {
@@ -67,13 +68,13 @@
 	
 	input[type='text']
 	{
-	min-height:7%;
+	height:7%;
 	font-size:1em;
 	}
 	input[type='button']
 	{
 
-	min-height:7%;
+	height:7%;
 	}
 	form h4
 	{
@@ -105,7 +106,7 @@
 		<ul class="navbar-nav ">
 		
 		  <li class="nav-item">
-				<a class="nav-link" href="javascript:signOut()" >  Logout</a>
+				<a class="nav-link" href="javascript:signOut()" >Logout</a>
 		  </li>
 		
 		</ul>
@@ -114,16 +115,17 @@
 <div class="mainbody bg-custom text-center">
  <form>
 <input type="text" id="long" placeholder="Enter Long URL Here..." /><br>
-<h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short" style="width:20%; min-width:150px" id="short" placeholder="Short URL (Optional) " /><br>
+<h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short" style="width:20%; min-width:180px" id="short" placeholder="Custom URL (Optional) " /><br>
 <input type="button" onclick="shortURL()" value="Tiny it!" />
 </form>
 
  <p id="shorturl"></p> 
 </div>
-<div class="container col-sm-10" style="margin-bottom:15px; margin-top:15px;">
-<h5>Recent Shorten Links</h5>
+<div class="container col-sm-10" style="margin-bottom:15px; margin-top:35px;">
+<h5 style="font-family: 'Noto Sans JP', sans-serif;">Recent Shorten Links</h5>
 <hr>
 </div>
+
 
 </body>
 <script>
