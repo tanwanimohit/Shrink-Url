@@ -369,7 +369,7 @@ function UpdateCount(res,req,shorturl,murl,count)
 		var newcount=1 + parseInt(count, 10);
 		collection.updateOne({ linkkey : shorturl }, {$set : {count : newcount}},function(err,docs)
 		{
-			console.log(docs);
+			
 			if(err)
 			{
 				res.redirect('/404');
