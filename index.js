@@ -181,7 +181,7 @@ app.post('/verifylogin', (req, res) => {
 	
 });
 
-app.post('/shorturl', (req, res) => {
+app.post('/shorturl',LoginChecker, (req, res) => {
 	
 	var longurl=req.body.longurl;
 	var shorturl=req.body.shorturl;
@@ -263,6 +263,7 @@ function ShortURL(longurl,shorturl,req,res)
 					linkkey: newshort,
 					url:longurl,
 					owner:req.session.user.email,
+					DateOfCreation:new Date().toLocaleString(),
 					status:'on'
 						
 				},function(data,err)
@@ -314,7 +315,8 @@ function insertData(req,res)
 					Name: req.session.user.name,
 					Email:req.session.user.email,
 					Profile:req.session.user.picture,
-					UserId:req.session.user.userid
+					UserId:req.session.user.userid,
+					DateOfCreation:new Date().toLocaleString()
 						
 				},function(data,err)
 				{
