@@ -187,11 +187,14 @@
       
     });
 	};
-  
-	$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
-					
-					
-					document.getElementById("copybtn").style="display:none";
+  function shortURL()
+	{
+		document.getElementById("copybtn").style="display:none";
+		var longurl=document.getElementById("long").value;
+		var shorturl=document.getElementById("short").value;
+		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
+						
+					document.getElementById("shorturlcopy").value=" ";
 
 					if(data=="error")
 					{	
