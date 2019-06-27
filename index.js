@@ -252,7 +252,8 @@ function ShortURL(longurl,shorturl,req,res)
 					url:longurl,
 					owner:req.session.user.email,
 					DateOfCreation:new Date().toLocaleString(),
-					status:'on'
+					status:'on',
+					count:"0"
 						
 				},function(data,err)
 				{
@@ -304,8 +305,7 @@ function insertData(req,res)
 					Email:req.session.user.email,
 					Profile:req.session.user.picture,
 					UserId:req.session.user.userid,
-					DateOfCreation:new Date().toLocaleString(),
-					count:"0"
+					DateOfCreation:new Date().toLocaleString()
 						
 				},function(data,err)
 				{
