@@ -196,11 +196,11 @@ app.post('/shorturl',LoginChecker, (req, res) => {
 					console.log(docs);
 					if(docs.length==0)
 					{
-						CheckURLdup(longurl,shorturl,req,res);
+						IsVaildURL(longurl,shorturl,req,res);
 					}	
 					else
 					{
-						res.send("Try another Custom URL..");
+						res.send("Ahhh! This Custom URL is already Occupied :( ");
 					}
 				});
 				client.close();
@@ -210,28 +210,16 @@ app.post('/shorturl',LoginChecker, (req, res) => {
 	
 });
 
-function CheckURLdup(longurl,shorturl,req,res)
-{
-	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
-		
-				const db = client.db(dbName);
-				const collection = db.collection('links');
-				
-				collection.find({ url : longurl }).toArray(function(err,docs)
-				{
-					console.log(docs);
-					if(docs.length==1)
-					{
-						res.send('URL is already Created : https://tinyfor.me/'+docs[0].linkkey);
-					}	
-					else
-					{
-						ShortURL(longurl,shorturl,req,res);
-					}
-				});
-				client.close();
-				
-	});	
+function IsVaildURL(longurl,shorturl,req,res)
+{	
+	if(CheckURL(longurl))
+	{
+		ShortURL(longurl,shorturl,req,res);
+	}
+	else
+	{
+		res.send("Please Enter a vaild URL.")
+	}
 }
 
 function ShortURL(longurl,shorturl,req,res)
@@ -351,11 +339,75 @@ app.get('/:id', (req, res) => {
 			});
 });
 
+app.get('/c/:id', (req, res) => {
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				var id=req.params.id;
+				collection.find({ linkkey : id , status : 'on'}).toArray(function(err,docs)
+				{
+					console.log(docs);
+					if(docs.length==1)
+					{
+						//res.redirect(docs[0].url);
+						UpdateCount(res,req,docs[0].linkkey,docs[0].url,docs[0].count);
+					}	
+					else
+					{
+						res.redirect('/404');
+					}
+				});
+				client.close();
+				
+			});
+});
 
 function getrandom(no){
     var random_string = Math.random().toString(32).substring(2, no) + Math.random().toString(32).substring(2, 5);    
 	console.log(random_string);
 	return random_string;
+}
+
+function CheckURL(str)
+{
+	
+//Regular Expression to Check Wheather URL is Vaild or not !
+var expression = /https?:[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+var regex = new RegExp(expression);
+var t = str;
+
+if (t.match(regex)) {
+  return true;
+} else {
+  return false;
+}
+
+}
+
+function UpdateCount(res,req,shorturl,url,count)
+{
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		const db = client.db(dbName);
+		const collection = db.collection('links');
+		var newcount=0 + count;
+		collection.updateOne({ linkkey : shorturl }, {$set : {count : newcount}},(function(err,docs)
+		{
+			console.log(docs);
+			if(err)
+			{
+				res.redirect('/404');
+				
+			}	
+			else
+			{
+				res.redirect(url);
+			}
+		});
+		client.close();
+		
+		});
+	});
 }
 
 
