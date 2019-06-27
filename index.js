@@ -315,7 +315,6 @@ function insertData(req,res)
 			});
 }
 
-
 app.get('/:id', (req, res) => {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
@@ -327,30 +326,6 @@ app.get('/:id', (req, res) => {
 					console.log(docs);
 					if(docs.length==1)
 					{
-						res.redirect(docs[0].url);
-					}	
-					else
-					{
-						res.redirect('/404');
-					}
-				});
-				client.close();
-				
-			});
-});
-
-app.get('/c/:id', (req, res) => {
-	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
-		
-				const db = client.db(dbName);
-				const collection = db.collection('links');
-				var id=req.params.id;
-				collection.find({ linkkey : id , status : 'on'}).toArray(function(err,docs)
-				{
-					console.log(docs);
-					if(docs.length==1)
-					{
-						//res.redirect(docs[0].url);
 						UpdateCount(res,req,docs[0].linkkey,docs[0].url,docs[0].count);
 					}	
 					else
@@ -372,16 +347,16 @@ function getrandom(no){
 function CheckURL(str)
 {
 	
-//Regular Expression to Check Wheather URL is Vaild or not !
-var expression = /https?:[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-var regex = new RegExp(expression);
-var t = str;
+	//Regular Expression to Check Wheather URL is Vaild or not !
+	var expression = /https?:[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+	var regex = new RegExp(expression);
+	var t = str;
 
-if (t.match(regex)) {
-  return true;
-} else {
-  return false;
-}
+	if (t.match(regex)) {
+	  return true;
+	} else {
+	  return false;
+	}
 
 }
 
@@ -390,7 +365,7 @@ function UpdateCount(res,req,shorturl,murl,count)
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		const db = client.db(dbName);
 		const collection = db.collection('links');
-		var newcount=0 + count;
+		var newcount=1 + parseInt(count, 10);
 		collection.updateOne({ linkkey : shorturl }, {$set : {count : newcount}},function(err,docs)
 		{
 			console.log(docs);
