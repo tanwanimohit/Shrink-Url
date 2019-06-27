@@ -200,7 +200,7 @@ app.post('/shorturl',LoginChecker, (req, res) => {
 					}	
 					else
 					{
-						res.send("Ahhh! This Custom URL is already Occupied :( ");
+						res.send("Ahhh! This Custom URL is already Occupied :(");
 					}
 				});
 				client.close();
@@ -237,7 +237,7 @@ function ShortURL(longurl,shorturl,req,res)
 			temp=getrandom(t++);
 		}
 		newshort=temp;
-		console.log("this is :"+newshort);
+		
 	}
 	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){

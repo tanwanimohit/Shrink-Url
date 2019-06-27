@@ -14,6 +14,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
   <style>
+  a:link, a:visited {
+	color:white;
+  }
 	.bg-custom
 	{
 		background-color:#2979ff;
@@ -60,7 +63,7 @@
 	}
 	.mainbody
 	{
-		height:270px;
+		height:auto;
 	}
 
 	@media only screen and (max-width: 470px) {
@@ -80,10 +83,7 @@
 	{
 		font-size:1.2em;	
 	}
-	.mainbody
-	{
-		height:330px;
-	}
+	
 	.logos	
 	{
 	font-size:2em;
@@ -97,6 +97,10 @@
 
 	font-weight:normal;
 
+	}
+	#copybtn
+	{
+		display:none;
 	}
 	
   </style>
@@ -133,7 +137,10 @@
 <input type="text" id="long" placeholder="Enter Long URL Here..." /><br>
 <h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short" style="width:20%; min-width:130px" id="short" placeholder="Custom URL " /><br>
 <input type="button" onclick="shortURL()" value="Tiny it!" />
-<p id="shorturl">If you don't want to create custom url just leave the other box empty.</p>
+<input type="text" id="shorturlcopy" style="display:none" />
+<p id="shorturl">If you don't want to create custom url just leave the other box empty.
+<input type="button" id="copybtn" onClick="Copy()" data-toggle="tooltip" title="Copied!" value="Copy" style="font-size:12px; min-width:0px; width:auto;"/>
+</p>
 </form>
 
 </div>
@@ -179,22 +186,45 @@
   
 	function shortURL()
 	{
+		document.getElementById("copybtn").style.display="none";
 		var longurl=document.getElementById("long").value;
 		var shorturl=document.getElementById("short").value;
 		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
 					
+					document.getElementById("shorturlcopy").value=" ";
+					document.getElementById("copybtn").style.display="none";
+
 					if(data=="error")
 					{	
 						alert("Something Went Wrong !");
 					}
 					else
 					{
-						document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>";
+						
+						if(data!="Ahhh! This Custom URL is already Occupied :(" data!="Please Enter a vaild URL.")
+						{
+							
+							document.getElementById("copybtn").style.display="block";
+							document.getElementById("shorturl").innerHTML=pre+"Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>";
+							document.getElementById("shorturlcopy").value=data;
+						
+						}
+						else
+						{
+							document.getElementById("shorturl").innerHTML=data;
+						}
 					}
 			}
 			);
 	}
-	  
+			
+	function Copy()
+	{
+	
+		var copyText = document.getElementById("shorturlcopy");
+		copyText.select();
+		document.execCommand("copy");
+	}
 	
 </script>
 </html>
