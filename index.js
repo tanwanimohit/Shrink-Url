@@ -385,7 +385,7 @@ if (t.match(regex)) {
 
 }
 
-function UpdateCount(res,req,shorturl,url,count)
+function UpdateCount(res,req,shorturl,murl,count)
 {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		const db = client.db(dbName);
@@ -401,7 +401,7 @@ function UpdateCount(res,req,shorturl,url,count)
 			}	
 			else
 			{
-				res.redirect(url);
+				res.redirect(murl);
 			}
 		});
 		client.close();
