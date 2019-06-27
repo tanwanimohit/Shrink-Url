@@ -304,7 +304,8 @@ function insertData(req,res)
 					Email:req.session.user.email,
 					Profile:req.session.user.picture,
 					UserId:req.session.user.userid,
-					DateOfCreation:new Date().toLocaleString()
+					DateOfCreation:new Date().toLocaleString(),
+					count:"0"
 						
 				},function(data,err)
 				{
