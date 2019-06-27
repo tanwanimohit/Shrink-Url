@@ -186,13 +186,13 @@
   
 	function shortURL()
 	{
-		document.getElementById("copybtn").style.display="none";
+		document.getElementById("copybtn").style="display:none";
 		var longurl=document.getElementById("long").value;
 		var shorturl=document.getElementById("short").value;
 		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
 					
 					document.getElementById("shorturlcopy").value=" ";
-					document.getElementById("copybtn").style.display="none";
+					document.getElementById("copybtn").style="display:none";
 
 					if(data=="error")
 					{	
@@ -204,7 +204,7 @@
 						if(data!="Ahhh! This Custom URL is already Occupied :(" && data!="Please Enter a vaild URL.")
 						{
 							
-							document.getElementById("copybtn").style.display="block";
+							document.getElementById("copybtn").style="display:block";
 							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>";
 							document.getElementById("shorturlcopy").value=data;
 						
