@@ -201,11 +201,11 @@
 					else
 					{
 						
-						if(data!="Ahhh! This Custom URL is already Occupied :(" || data!="Please Enter a vaild URL.")
+						if(data!="Ahhh! This Custom URL is already Occupied :(" && data!="Please Enter a vaild URL.")
 						{
 							
 							document.getElementById("copybtn").style.display="block";
-							document.getElementById("shorturl").innerHTML=pre+"Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>";
+							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>";
 							document.getElementById("shorturlcopy").value=data;
 						
 						}
