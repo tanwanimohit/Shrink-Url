@@ -391,7 +391,7 @@ function UpdateCount(res,req,shorturl,url,count)
 		const db = client.db(dbName);
 		const collection = db.collection('links');
 		var newcount=0 + count;
-		collection.updateOne({ linkkey : shorturl }, {$set : {count : newcount}},(function(err,docs)
+		collection.updateOne({ linkkey : shorturl }, {$set : {count : newcount}},function(err,docs)
 		{
 			console.log(docs);
 			if(err)
@@ -406,7 +406,6 @@ function UpdateCount(res,req,shorturl,url,count)
 		});
 		client.close();
 		
-		});
 	});
 }
 
