@@ -101,6 +101,10 @@
 	#copybtn
 	{
 		display:none;
+		margin:0px;
+		font-size:12px;
+		min-width:0px;
+		width:auto;
 	}
 	
   </style>
@@ -184,14 +188,9 @@
     });
 	};
   
-	function shortURL()
-	{
-		document.getElementById("copybtn").style="display:none";
-		var longurl=document.getElementById("long").value;
-		var shorturl=document.getElementById("short").value;
-		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
+	$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
 					
-					document.getElementById("shorturlcopy").value=" ";
+					
 					document.getElementById("copybtn").style="display:none";
 
 					if(data=="error")
@@ -205,7 +204,7 @@
 						{
 							
 							document.getElementById("copybtn").style="display:block";
-							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>";
+							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a>"+"<input type='button' id='copybtn' onClick='Copy()' data-toggle='tooltip' title='Copied!' value='Copy'/>";
 							document.getElementById("shorturlcopy").value=data;
 						
 						}
@@ -217,7 +216,7 @@
 			}
 			);
 	}
-			
+	
 	function Copy()
 	{
 	
