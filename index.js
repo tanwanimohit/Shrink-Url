@@ -214,12 +214,16 @@ function IsVaildURL(longurl,shorturl,req,res)
 {	
 	if(CheckURL(longurl))
 	{
-		ShortURL(longurl,shorturl,req,res);
+		if(longurl.includes("tinyfor.me"))
+		{
+			res.send("This URL is not allowed.");
+		}
+		else
+		{
+			ShortURL(longurl,shorturl,req,res);
+		}	
 	}
-	else if(longurl.includes("tinyfor.me"))
-	{
-		res.send("This URL is not allowed.");
-	}
+	
 	else
 	{
 		res.send("Please Enter a vaild URL.");
