@@ -28,7 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 3600000
+        expires:  7*24*3600*1000
     }
 }));
 
@@ -216,9 +216,13 @@ function IsVaildURL(longurl,shorturl,req,res)
 	{
 		ShortURL(longurl,shorturl,req,res);
 	}
+	else if(longurl.includes("tinyfor.me"))
+	{
+		res.send("This URL is not allowed.");
+	}
 	else
 	{
-		res.send("Please Enter a vaild URL.")
+		res.send("Please Enter a vaild URL.");
 	}
 }
 
