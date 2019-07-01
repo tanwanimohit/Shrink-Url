@@ -407,7 +407,7 @@ app.post('/api/shorturl', (req, res) => {
 						
 				},function(data,err)
 				{
-					res.send('https://tinyfor.me/'+shorturl);
+					res.send('https://tinyfor.me/'+newshort);
 				});
 				client.close();
 				
