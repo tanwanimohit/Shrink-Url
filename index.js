@@ -67,7 +67,7 @@ var sessionChecker = (req, res, next) => {
 // middleware function to check for logged-in users
 var LoginChecker = (req, res, next) => {
     if (req.session.user && req.cookies.user_sid) {
-		console.log(req.session.user);
+		console.log("User Signed IN :- "+req.session.user.email);
 		
 		
 		next();
@@ -76,8 +76,11 @@ var LoginChecker = (req, res, next) => {
     }    
 };
 
+//Replace with your Own Google Client ID For Sign In Perpose.
 var CLIENT_ID = process.env.clientID;
 
+
+//to verifythe login (using google's own function to verify)
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
 async function verify(token,req,res) {
@@ -104,14 +107,16 @@ async function verify(token,req,res) {
 	}
 	catch(e)
 	{
+		//error
 		console.log("error"+e);
 		response="error";
 	}
 	finally
 	{
-		console.log(response);
+		//console.log(response);
 		if(response=="success")
 		{
+			//Setting the Session
 			req.session.user=user;
 			
 			res.send("success");
@@ -144,12 +149,14 @@ app.get('/logout', (req, res) => {
 });
 
 
+//404 Page
 app.get('/404', (req, res) => {
 	
 	res.render('404');
 });
 
 
+//Dashboard
 app.get('/Dashboard',LoginChecker, (req, res) => {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
@@ -158,14 +165,16 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 				
 				collection.find({ Email : req.session.user.email }).toArray(function(err,docs)
 				{
-					console.log(docs);
+					//console.log(docs);
+					//for New User
 					if(docs.length==0)
 					{
 						insertData(req,res);
 					}	
 					else
 					{
-						res.render('dashboard',{data:req.session.user});
+						//Registered User
+						GetHistory(req,res);
 					}
 				});
 				client.close();
@@ -174,38 +183,67 @@ app.get('/Dashboard',LoginChecker, (req, res) => {
 });
 
 
-
+//Verify the google login 
 app.post('/verifylogin', (req, res) => {
 	
 	verify(req.body.token,req, res);
 	
 });
 
+//Short URL (Signed in user)
 app.post('/shorturl',LoginChecker, (req, res) => {
 	
 	var longurl=req.body.longurl;
 	var shorturl=req.body.shorturl;
+	shorturl=shorturl.replace(/[^a-zA-Z0-9 ]/g, "");
+	shorturl=shorturl.replace(" ","");
 	
-	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+	//If no Custom URL is Given / Random URl generation
+	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" " || shorturl=='')
+	{
+		var newshort=shorturl;
+		if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" " || shorturl=='')
+		{
+			console.log("Generating Random URL...");
+			var t=2;
+			var temp=getrandom(t);
+			while(CheckAvailability(temp)==0)
+			{
+				//Increasing the size of Random URL
+				temp=getrandom(t++);
+			}
+			newshort=temp;
+			
+		}
 		
-				const db = client.db(dbName);
-				const collection = db.collection('links');
-				
-				collection.find({ linkkey : shorturl }).toArray(function(err,docs)
-				{
-					console.log(docs);
-					if(docs.length==0)
+		//To check wheather URL is vaild or not.
+		IsVaildURL(longurl,newshort,req,res);
+	}
+	else
+	{
+		//Checking if Custom URl is available or not
+		MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+			
+					const db = client.db(dbName);
+					const collection = db.collection('links');
+					
+					collection.find({ linkkey : shorturl }).toArray(function(err,docs)
 					{
-						IsVaildURL(longurl,shorturl,req,res);
-					}	
-					else
-					{
-						res.send("Ahhh! This Custom URL is already Occupied :(");
-					}
-				});
-				client.close();
-				
-	});	
+						//console.log(docs);
+						if(docs.length==0)
+						{
+							//URL Vaildaiton
+							IsVaildURL(longurl,shorturl,req,res);
+						}	
+						else
+						{
+							res.send("Ahhh! This Custom URL is already Occupied :(");
+						}
+					});
+					client.close();
+					
+		});	
+	}
 	
 	
 });
@@ -220,6 +258,7 @@ function IsVaildURL(longurl,shorturl,req,res)
 		}
 		else
 		{
+			//Main Step to enter the data in DB.
 			ShortURL(longurl,shorturl,req,res);
 		}	
 	}
@@ -232,22 +271,7 @@ function IsVaildURL(longurl,shorturl,req,res)
 
 function ShortURL(longurl,shorturl,req,res)
 {
-	shorturl=shorturl.replace(/[^a-zA-Z0-9 ]/g, "");
-	shorturl=shorturl.replace(" ","");
-	var newshort=shorturl;
-	if(shorturl==undefined || shorturl==null || shorturl=="" || shorturl==" " || shorturl=='')
-	{
-		console.log("Generating Random URL...");
-		var t=2;
-		var temp=getrandom(t);
-		while(CheckAvailability(temp)==0)
-		{
-			temp=getrandom(t++);
-		}
-		newshort=temp;
-		
-	}
-	
+	//Just Entering the Data in DB.
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
@@ -256,7 +280,7 @@ function ShortURL(longurl,shorturl,req,res)
 				collection.insertOne(
 				{
 					
-					linkkey: newshort,
+					linkkey: shorturl,
 					url:longurl,
 					owner:req.session.user.email,
 					DateOfCreation:new Date().toLocaleString(),
@@ -265,18 +289,18 @@ function ShortURL(longurl,shorturl,req,res)
 						
 				},function(data,err)
 				{
-					res.send('https://tinyfor.me/'+newshort);
+					res.send('https://tinyfor.me/'+shorturl);
 				});
 				client.close();
 				
 			});
-	
-	
+		
 }
 
+//Checking Random URL is Available or not.
 function CheckAvailability(temp)
 {
-	console.log("checking...");
+	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
@@ -299,6 +323,26 @@ function CheckAvailability(temp)
 	});
 }
 
+//Getting Short URLs History
+function GetHistory(req,res)
+{
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.find({ owner : session.user.email }).toArray(function(err,docs)
+				{
+					res.render('dashboard',{data:req.session.user,history:docs});
+					
+				});
+				client.close();
+				
+	});
+	
+}
+
+//inserting New User Data
 function insertData(req,res)
 {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
@@ -317,13 +361,67 @@ function insertData(req,res)
 						
 				},function(data,err)
 				{
-					res.render('dashboard',{data:req.session.user});
+					GetHistory(req,res);
 				});
 				client.close();
 				
 			});
 }
 
+//Public API for Short URL almost same as Private without having Custom URL Support
+app.post('/api/shorturl', (req, res) => {
+	
+	var longurl=req.body.longurl;
+	var newshort="";
+
+	console.log("Generating Random URL...");
+	var t=2;
+	var temp=getrandom(t);
+	while(CheckAvailability(temp)==0)
+	{
+		temp=getrandom(t++);
+	}
+	newshort=temp;
+		
+	if(CheckURL(longurl))
+	{
+		if(longurl.includes("tinyfor.me"))
+		{
+			res.send("This URL is not allowed.");
+		}
+		else
+		{
+			MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.insertOne(
+				{
+					
+					linkkey: shorturl,
+					url:longurl,
+					DateOfCreation:new Date().toLocaleString(),
+					status:'on',
+					count:"0"
+						
+				},function(data,err)
+				{
+					res.send('https://tinyfor.me/'+shorturl);
+				});
+				client.close();
+				
+			});
+		}	
+	}
+	else
+	{
+		res.send("Please Enter a vaild URL.");
+	}
+	
+});
+
+//Redirecting to the Main URL
 app.get('/:id', (req, res) => {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
@@ -332,13 +430,15 @@ app.get('/:id', (req, res) => {
 				var id=req.params.id;
 				collection.find({ linkkey : id , status : 'on'}).toArray(function(err,docs)
 				{
-					console.log(docs);
+					//console.log(docs);
 					if(docs.length==1)
 					{
+						//Maintaining the Count.
 						UpdateCount(res,req,docs[0].linkkey,docs[0].url,docs[0].count);
 					}	
 					else
 					{
+						//Else 404.
 						res.redirect('/404');
 					}
 				});
@@ -347,12 +447,14 @@ app.get('/:id', (req, res) => {
 			});
 });
 
+//Random URl Generation
 function getrandom(no){
     var random_string = Math.random().toString(32).substring(2, no) + Math.random().toString(32).substring(2, 5);    
-	console.log(random_string);
+	//console.log(random_string);
 	return random_string;
 }
 
+//Using Regular Exprssion to checking the string is url or not.
 function CheckURL(str)
 {
 	
@@ -369,6 +471,7 @@ function CheckURL(str)
 
 }
 
+//When User Opens the links, to maintain the count of oppening of the url
 function UpdateCount(res,req,shorturl,murl,count)
 {
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
