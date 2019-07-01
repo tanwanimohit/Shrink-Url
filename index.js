@@ -399,7 +399,7 @@ app.post('/api/shorturl', (req, res) => {
 				collection.insertOne(
 				{
 					
-					linkkey: shorturl,
+					linkkey: newshort,
 					url:longurl,
 					DateOfCreation:new Date().toLocaleString(),
 					status:'on',
