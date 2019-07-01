@@ -465,7 +465,7 @@ function CheckURL(str)
 
 	if (t.match(regex)) {
 	  return true;
-	} else {
+	} else { 	
 	  return false;
 	}
 
