@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-<title>Tiny For me</title>
+<title>TinyForme</title>
 <style>
 html,body {
     min-height: 100%; /* Needed for container's min-height  */  
@@ -114,13 +113,24 @@ display:none;
 }
 
 }
+
+#copybtn
+	{
+		
+		margin:0px;
+		font-size:12px;
+		min-width:0px;
+		width:auto;
+	}
 </style>
 </head>
 <body>
 <center><h1>tiny For Me!</h1>
 <form>
-<input type="text" placeholder="Enter Long URL Here..." />
-<input type="button" value="Tiny it!" />
+<input type="text" id="long" placeholder="Enter Long URL Here..." />
+<input type="button" onclick="shortURL()" value="Tiny it!" />
+<input type="text" id="shorturlcopy"  style="min-width:0px; width:0.1px" readonly/>
+<p id="shorturl">Shrinked URL : https://tinyfor.me/fjs </p>
 </form>
 <h2> To get Custom Links and much more facilties please</h2>
 <div id="my-signin2"></div>
@@ -163,6 +173,48 @@ display:none;
 			}
 			);
 		}
+		
+	function shortURL()
+	{
+		
+		var longurl=document.getElementById("long").value;
+		
+		$.post('api/shorturl',{longurl:longurl},function(data,status){
+						
+					document.getElementById("shorturlcopy").value=" ";
+
+					if(data=="error")
+					{	
+						alert("Something Went Wrong !");
+					}
+					else
+					{
+						
+						if(data!="Ahhh! This Custom URL is already Occupied :(" && data!="Please Enter a vaild URL." && data!="This URL is not allowed.")
+						{
+							
+							
+							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a> "+" <input type='button' id='copybtn' onClick='Copy()' data-toggle='tooltip' title='Copied!' value='Copy'/>";
+							document.getElementById("shorturlcopy").value=data;
+						
+						}
+						else
+						{
+							document.getElementById("shorturl").innerHTML=data;
+						}
+					}
+			}
+			);
+	}
+	
+	function Copy()
+	{
+	
+		var copyText = document.getElementById("shorturlcopy");
+		copyText.select();
+		document.execCommand("copy");
+		document.getElementById("copybtn").value="Copied";
+	}
 </script>
 
 </center>
