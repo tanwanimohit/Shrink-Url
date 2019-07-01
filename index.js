@@ -331,7 +331,7 @@ function GetHistory(req,res)
 				const db = client.db(dbName);
 				const collection = db.collection('links');
 				
-				collection.find({ owner : session.user.email }).toArray(function(err,docs)
+				collection.find({ owner : req.session.user.email }).toArray(function(err,docs)
 				{
 					res.render('dashboard',{data:req.session.user,history:docs});
 					
