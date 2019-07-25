@@ -4,7 +4,7 @@
   <title>Dashboard - Tinyforme</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-  
+  <script src="https://use.fontawesome.com/751809a74e.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap" rel="stylesheet">
   <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"> 
@@ -111,7 +111,48 @@
 		min-width:0px;
 		width:auto;
 	}
-	
+	.History
+	{
+		box-shadow:0 0 16px 0 rgba(12,12,13,.1);
+		min-height:100px;
+		border-radius:5px;
+		padding : 20px;
+		margin:20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		 word-break: break-all;
+	}
+	.History img
+	{
+		margin : 5px 10px 0px 10px;
+		float : left;
+	}
+	.History h5
+	{
+		margin-bottom:0px;
+		padding-right:20px;
+		
+	}
+	.History h6
+	{
+		margin:10px;
+		color:#adadad;
+	}
+	.History a
+	{
+		color : #2979ff;
+		font-weight:bold;
+		margin:0px 10px;
+		font-size:1.1em;
+	}
+	.del
+	{
+		float:right;
+	}
+	.murl
+	{
+	color : #2979ff;
+	}
   </style>
 </head>
 <body  onload="startApp()">
@@ -155,6 +196,19 @@
 <div class="container col-sm-10" style="margin-bottom:15px; margin-top:35px;">
 <h5 style="font-family: 'Noto Sans JP', sans-serif;">Recent Shorten Links</h5>
 <hr>
+
+<% var j=0; %>
+<% for(var i=history.length-1; i>=0; i--) { %>
+<div class="History">
+
+<img src="media/url.png" height="40"/><h5><%= history[i].url %></h5>
+<h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5>
+<h6>Total Click Counts : <%= history[i].count %>  </h6>
+<hr>
+<a href="fjsjkld" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+<a href="fjsjkld" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+</div>
+<% } %>
 </div>
 
 
