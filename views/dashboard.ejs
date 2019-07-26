@@ -120,7 +120,7 @@
 		margin-bottom:20px;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		 word-break: break-all;
+		
 	}
 	.History img
 	{
@@ -131,7 +131,9 @@
 	{
 		margin-bottom:0px;
 		padding-right:20px;
-		
+		font-weight:normal;
+		overflow: hidden;
+		 text-overflow:ellipsis;
 	}
 	.History h6
 	{
@@ -144,7 +146,9 @@
 		font-weight:bold;
 		margin:0px 10px;
 		font-size:1.1em;
+		text-decoration: none; 
 	}
+	
 	.del
 	{
 		float:right;
@@ -187,7 +191,7 @@
 <input type="text" id="long" placeholder="Enter Long URL Here..." autocomplete="off"/><br>
 <h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short" style="width:20%; min-width:130px" id="short" placeholder="Custom URL " /><br>
 <input type="button" onclick="shortURL()" value="Tiny it!" />
-<input type="text" id="shorturlcopy" style="min-width:0px; width:0.1px" readonly/>
+<input type="text" id="shorturlcopy" style="min-width:0px; width:0.1px; background:#2979ff;" readonly/>
 <p id="shorturl">If you don't want to create custom url just leave the other box empty.
 </p>
 </form>
@@ -199,15 +203,33 @@
 
 <% var j=0; %>
 <% for(var i=history.length-1; i>=0; i--) { %>
-<div class="History">
-
-<img src="media/url.png" height="40"/><h5><%= history[i].url %></h5>
-<h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5>
-<h6>Total Click Counts : <%= history[i].count %>  </h6>
+<% if(j<=9) { %>
+<div class="History" id="#<%=i+1%>">
+<input type="text" id="shorturlcopy#<%=i+1%>" style="min-width:0px; width:0.1px; background:#fff; float:left;" value="https://tinyfor.me/<%= history[i].linkkey %>" readonly/>
+<img src="media/url.png" height="40"/>
+<h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5><h5><%= history[i].url %></h5>
+<h6>Total Clicks : <%= history[i].count %>  </h6>
 <hr>
-<a href="fjsjkld" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-<a href="fjsjkld" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+<a href="" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
 </div>
+<% } else {  %>
+<% if(j==10) {%> <div id="morelinks" style="display:none"><% } %>
+<div class="History" id="#<%=i+1%>">
+<input type="text" id="shorturlcopy#<%=i+1%>" style="min-width:0px; width:0.1px; background:#fff; float:left;" value="https://tinyfor.me/<%= history[i].linkkey %>" readonly/>
+<img src="media/url.png" height="40"/>
+<h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5><h5><%= history[i].url %></h5>
+<h6>Total Clicks : <%= history[i].count %>  </h6>
+<hr>
+<a href="" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+</div>
+<% } %>
+
+<% j++ %>
+<% } %>
+<% if(j>10) { %></div>
+<center><input type="button" value="Load More" class="loadmore" id="morebtn" onclick="loadmore()" style="background:#2979ff; border-radius:5px;"/></center>
 <% } %>
 </div>
 
@@ -285,6 +307,24 @@
 		copyText.select();
 		document.execCommand("copy");
 		document.getElementById("copybtn").value="Copied";
+	}
+	
+	function copyme(a)
+	{
+	
+		var copyText = document.getElementById("shorturlcopy#"+a);
+		copyText.select();
+		document.execCommand("copy");
+		//document.getElementById("copybtn").innher="Copied";
+	}
+	
+	function loadmore()
+	{
+		var btn=document.getElementById("morebtn");
+		var link=document.getElementById("morelinks");
+		
+		link.style="display:block;";
+		btn.style="display:none";
 	}
 	
 </script>
