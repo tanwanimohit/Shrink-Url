@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard - Tinyforme</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <script src="https://use.fontawesome.com/751809a74e.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap" rel="stylesheet">
+  <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"> 
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style>
+  html,body {
+    min-height: 100%; /* Needed for container's min-height  */  
+}
+
+body
+{
+background : #fff;
+color:#2979ff;
+}
+
+h1
+{
+font-family: 'Luckiest Guy', cursive;
+font-size:4.5em;
+padding : 15px;
+font-weight:normal;
+}
+
+  a:link, a:visited {
+	color:#2979ff;
+	text-decoration : none;
+	font-weight: bold;
+	font-size:1.2em;
+  }
+  
+	.bg-custom
+	{
+		background-color:#2979ff;
+	}
+	.bg-image
+	{
+		background : url('media/bg2.png');
+		background-size:cover;
+	}
+	.headfont
+	{
+		font-family: 'Luckiest Guy';
+	}
+	form
+	{
+		padding:25px;
+		
+		
+	}
+	form h4
+	{
+	
+		
+		display:inline-block;
+	}
+	input[type='text']
+	{
+	border:1px solid #2979ff;
+	width:40%;
+	min-height:4%;
+	margin:10px 0px;
+	text-align:center;
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size:1.3em;
+	min-width:280px;
+	text-decoration:none;
+	
+	}
+
+	input[type='submit']
+	{
+	background:#002666;
+	border:0px #002666;
+	color:white;
+	min-height:4%;
+	margin:10px 0px;
+	width:150px;
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size:1.3em;
+	}
+	.mainbody
+	{
+		height:auto;
+	}
+
+	@media only screen and (max-width: 470px) {
+
+	
+	input[type='text']
+	{
+	min-height:7%;
+	font-size:1em;
+	}
+	input[type='submit']
+	{
+
+	height:7%;
+	}
+	form h4
+	{
+		font-size:1.2em;	
+	}
+	
+	.logos	
+	{
+	font-size:2em;
+	}
+	}
+	.logos	
+	{
+	color:white;
+	font-family: 'Luckiest Guy', cursive;
+	font-size:2.5em;
+
+	font-weight:normal;
+
+	}
+	#copybtn
+	{
+		
+		margin:0px;
+		font-size:12px;
+		min-width:0px;
+		width:auto;
+	}
+	.History
+	{
+		box-shadow:0 0 16px 0 rgba(12,12,13,.1);
+		min-height:100px;
+		border-radius:5px;
+		padding : 20px;
+		margin-bottom:20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		
+	}
+	.History img
+	{
+		margin : 5px 10px 0px 10px;
+		float : left;
+	}
+	.History h5
+	{
+		margin-bottom:0px;
+		padding-right:20px;
+		font-weight:normal;
+		overflow: hidden;
+		 text-overflow:ellipsis;
+	}
+	.History h6
+	{
+		margin:10px;
+		color:#adadad;
+	}
+	.History a
+	{
+		color : #2979ff;
+		font-weight:bold;
+		margin:0px 10px;
+		font-size:1.1em;
+		text-decoration: none; 
+	}
+	
+	.del
+	{
+		float:right;
+	}
+	.murl
+	{
+	color : #2979ff;
+	}
+	a:hover {
+		cursor:pointer;
+	}
+  </style>
+</head>
+<body  onload="startApp()">
+
+<center><h1>tiny For Me!</h1>
+
+<form  method="post">
+<input type="text" id="token" name="token" value="<%= data[0]._id %>" hidden autocomplete="off"/>
+<input type="text" id="long"  name="long" value="<%= data[0].url %>" autocomplete="off"/><br>
+<h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short"  name="short" style="width:20%; min-width:130px" value="<%= data[0].linkkey %>" id="short"  /><br>
+<input type="submit"  formaction="/EditURL" value="Edit" />
+<input type="submit" formaction="/DeleteURL" style="background:#DE1738" value="Delete" />
+
+</p>
+</form>
+<a href="https://tinyfor.me"> <p> Back to Dashboard </p> </a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      window.open("/logout", '_self');
+    });
+	
+  }
+  
+	function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark'
+      });
+	}
+	  
+	  
+	var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      
+    });
+	};
+  
+</script>
+</html>

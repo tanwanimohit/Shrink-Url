@@ -155,6 +155,79 @@ app.get('/404', (req, res) => {
 	res.render('404');
 });
 
+//Edit Short URL
+app.post('/Edit',LoginChecker, (req, res) => {
+	//console.log(req.body.token);
+	var id=ObjectId(req.body.token);
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.find({ _id : id , owner : req.session.user.email}).toArray(function(err,docs)
+				{
+					//console.log(docs);
+					if(docs.length==1)
+					{
+						
+						res.render('Edit',{data:docs});
+					}	
+					else
+					{
+						//Else Home.
+						res.redirect('/');
+					}
+				});
+				client.close();
+				
+			});
+	
+});
+
+//Edit URL Next Step
+app.post('/EditURL',LoginChecker, (req, res) => {
+	//console.log(req.body.token);
+	var id=ObjectId(req.body.token);
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+	collection.updateOne(
+				{_id: id, owner : req.session.user.email},
+				{$set:{
+					url: req.body.long,
+					linkkey: req.body.short
+				}}
+			, function(err, result){
+				if(err) res.send("Something Went Wrong");
+				res.redirect("/Dashboard");
+			});
+			
+	});
+	
+});
+
+//Edit URL Next Step
+app.post('/DeleteURL',LoginChecker, (req, res) => {
+	//console.log(req.body.token);
+	var id=ObjectId(req.body.token);
+	
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+	collection.removeOne(
+				{_id: id, owner : req.session.user.email}
+			, function(err, result){
+				if(err) res.send("Something Went Wrong");
+				res.redirect("/Dashboard");
+			});
+			
+	});
+	
+});
 
 //Dashboard
 app.get('/Dashboard',LoginChecker, (req, res) => {

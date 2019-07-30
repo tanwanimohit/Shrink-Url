@@ -157,6 +157,9 @@
 	{
 	color : #2979ff;
 	}
+	a:hover {
+		cursor:pointer;
+	}
   </style>
 </head>
 <body  onload="startApp()">
@@ -210,8 +213,12 @@
 <h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5><h5><%= history[i].url %></h5>
 <h6>Total Clicks : <%= history[i].count %>  </h6>
 <hr>
-<a href="" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+<a href="javascript:edit(<%=i+1%>)" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 <a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+<form action="/Edit" method="post" hidden>
+<input type="text" name="token" value="<%= history[i]._id %>" hidden />
+<input type="submit" id="sbtn#<%=i+1%>" hidden>
+</form>
 </div>
 <% } else {  %>
 <% if(j==10) {%> <div id="morelinks" style="display:none"><% } %>
@@ -221,8 +228,12 @@
 <h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5><h5><%= history[i].url %></h5>
 <h6>Total Clicks : <%= history[i].count %>  </h6>
 <hr>
-<a href="" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+<a href="javascript:edit(<%=i+1%>)" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 <a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+<form action="/Edit" method="post" hidden>
+<input type="text" name="token" value="<%= history[i]._id %>" hidden />
+<input type="submit" id="sbtn#<%=i+1%>" hidden>
+</form>
 </div>
 <% } %>
 
@@ -314,8 +325,13 @@
 	
 		var copyText = document.getElementById("shorturlcopy#"+a);
 		copyText.select();
+		document.getElementById("btn#"+a).innerHTML="<i class='fa fa-clipboard' aria-hidden='true'></i> Copied";
 		document.execCommand("copy");
-		//document.getElementById("copybtn").innher="Copied";
+	}
+	
+	function edit(a)
+	{
+		document.getElementById("sbtn#"+a).click();
 	}
 	
 	function loadmore()
