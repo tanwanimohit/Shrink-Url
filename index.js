@@ -41,7 +41,7 @@ const url = process.env.MongoURL;
 const MongoClient = require('mongodb').MongoClient;
 
 //Database Name.
-const dbName =  process.env.dbName;
+const dbName =   process.env.dbName;
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
@@ -77,7 +77,7 @@ var LoginChecker = (req, res, next) => {
 };
 
 //Replace with your Own Google Client ID For Sign In Perpose.
-var CLIENT_ID =  process.env.clientID;
+var CLIENT_ID = process.env.clientID;
 
 
 //to verifythe login (using google's own function to verify)
@@ -241,7 +241,7 @@ function EditURLStep3(res,req,longurl,shorturl,id)
 		}
 		else
 		{
-			//Main Step to enter the data in DB.
+			//Updating the DATA.
 			MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
@@ -323,6 +323,28 @@ app.post('/verifylogin', (req, res) => {
 	
 	verify(req.body.token,req, res);
 	
+});
+
+app.post('/UpdateStatus',LoginChecker, (req, res) => {
+	
+	var id=ObjectId(req.body.token);
+	var status=req.body.status;
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.updateOne(
+				{_id: id, owner : req.session.user.email},
+				{$set:{
+					status:status
+				}}
+				, function(err, result){
+					if(err) res.send("Something Went Wrong");
+					res.redirect("/Dashboard");
+				});
+			
+	});
 });
 
 //Short URL (Signed in user)
