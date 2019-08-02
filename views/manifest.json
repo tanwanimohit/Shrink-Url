@@ -6,22 +6,22 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "url.png",
+      "src": "media/url.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "url.png",
+      "src": "media/url.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "url.png",
+      "src": "media/url.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "url.png",
+      "src": "media/url.png",
       "type": "image/png",
       "sizes": "192x192"
     }
