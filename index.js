@@ -77,7 +77,7 @@ var LoginChecker = (req, res, next) => {
 };
 
 //Replace with your Own Google Client ID For Sign In Perpose.
-var CLIENT_ID = process.env.clientID;
+var CLIENT_ID =  process.env.clientID;
 
 
 //to verifythe login (using google's own function to verify)
@@ -187,28 +187,90 @@ app.post('/Edit',LoginChecker, (req, res) => {
 //Edit URL Next Step
 app.post('/EditURL',LoginChecker, (req, res) => {
 	//console.log(req.body.token);
+	var shorturl=req.body.short;
+	shorturl=shorturl.replace(/[^a-zA-Z0-9 ]/g, "");
+	shorturl=shorturl.replace(" ","");
+	var longurl=req.body.long;
 	var id=ObjectId(req.body.token);
+	
+	//Checking if Custom URl is available or not
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		
 				const db = client.db(dbName);
 				const collection = db.collection('links');
 				
-	collection.updateOne(
-				{_id: id, owner : req.session.user.email},
-				{$set:{
-					url: req.body.long,
-					linkkey: req.body.short
-				}}
-			, function(err, result){
-				if(err) res.send("Something Went Wrong");
-				res.redirect("/Dashboard");
-			});
-			
-	});
+				collection.find({ linkkey : shorturl }).toArray(function(err,docs)
+				{
+					//console.log(docs);
+					if(docs.length==0)
+					{
+						EditURLStep3(res,req,longurl,shorturl,id);
+					}
+					else if(docs.length==1)
+					{
+						if(docs[0]._id==req.body.token)
+						{
+							EditURLStep3(res,req,longurl,shorturl,id);
+						}
+						else
+						{
+							res.send("Ahhh! This Custom URL is already Occupied :(");
+						}
+						
+					}	
+					else
+					{
+						res.send("Ahhh! This Custom URL is already Occupied :(");
+					}
+				});
+				client.close();
+				
+	});	
+	
 	
 });
 
-//Edit URL Next Step
+//Step 3 Towards EditURL
+function EditURLStep3(res,req,longurl,shorturl,id)
+{
+	if(CheckURL(longurl))
+	{
+		if(longurl.includes("tinyfor.me"))
+		{
+			res.send("This URL is not allowed.");
+		}
+		else
+		{
+			//Main Step to enter the data in DB.
+			MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		
+				const db = client.db(dbName);
+				const collection = db.collection('links');
+				
+				collection.updateOne(
+				{_id: id, owner : req.session.user.email},
+				{$set:{
+					url: longurl,
+					linkkey: shorturl
+				}}
+				, function(err, result){
+					if(err) res.send("Something Went Wrong");
+					res.redirect("/Dashboard");
+				});
+			
+			});
+		}	
+	}
+	
+	else
+	{
+		res.send("Please Enter a vaild URL.");
+	}
+}
+
+
+
+//Delete URL 
 app.post('/DeleteURL',LoginChecker, (req, res) => {
 	//console.log(req.body.token);
 	var id=ObjectId(req.body.token);

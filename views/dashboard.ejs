@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
   <title>Dashboard - Tinyforme</title>
+  
+  <link rel="icon" sizes="192x192" href="url.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
   <script src="https://use.fontawesome.com/751809a74e.js"></script>
@@ -205,6 +210,7 @@
 <hr>
 
 <% var j=0; %>
+<% if(history.length==0) { %> <center> Ahh! No History Found ! Don't you have any links to short :P </center> <% } %>
 <% for(var i=history.length-1; i>=0; i--) { %>
 <% if(j<=9) { %>
 <div class="History" id="#<%=i+1%>">

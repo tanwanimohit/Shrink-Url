@@ -1,0 +1,30 @@
+{
+  "short_name": "TestRight",
+  "name": "TestRight ExamTools",
+  "theme_color": "DodgerBlue",
+  "background_color": "#F7F8F9",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "https://testright.herokuapp.com/"
+}
