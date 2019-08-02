@@ -1,30 +1,30 @@
 {
-  "short_name": "TestRight",
-  "name": "TestRight ExamTools",
-  "theme_color": "DodgerBlue",
+  "short_name": "TinyForMe",
+  "name": "Tiny For Me ",
+  "theme_color": "white",
   "background_color": "#F7F8F9",
   "display": "standalone",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "url.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "icon.png",
+      "src": "url.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "icon.png",
+      "src": "url.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "icon.png",
+      "src": "url.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "https://testright.herokuapp.com/"
+  "start_url": "https://www.tinyfor.me/"
 }
