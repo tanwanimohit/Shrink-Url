@@ -155,6 +155,24 @@ app.get('/404', (req, res) => {
 	res.render('404');
 });
 
+//Terms And Conditions Page
+app.get('/Terms', (req, res) => {
+	
+	res.render('Terms');
+});
+
+//Privacy Page
+app.get('/Privacy', (req, res) => {
+	
+	res.render('Privacy');
+});
+
+//API Page
+app.get('/API', (req, res) => {
+	
+	res.render('API');
+});
+
 //Edit Short URL
 app.post('/Edit',LoginChecker, (req, res) => {
 	//console.log(req.body.token);
