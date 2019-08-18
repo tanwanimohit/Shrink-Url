@@ -6,25 +6,25 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "media/url.png",
+      "src": "media/burl.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "media/url.png",
+      "src": "media/burl.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "media/url.png",
+      "src": "media/burl.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "media/url.png",
+      "src": "media/burl.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "https://www.tinyfor.me/"
+  "start_burl": "https://www.tinyfor.me/"
 }
