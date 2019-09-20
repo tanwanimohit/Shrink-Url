@@ -19,12 +19,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="toggle.css">
   <style>
-  a:link, a:visited {
-	color:white;
-  }
+	a:link, a:visited {
+		color:white;
+	}
 	.bg-custom
 	{
 		background-color:#2979ff;
+	}
+	.sharebtn
+	{
+		display:none;
 	}
 	.bg-image
 	{
@@ -78,6 +82,10 @@
 
 	@media only screen and (max-width: 470px) {
 
+	.sharebtn
+	{
+	 display : block;
+	}
 	
 	input[type='text']
 	{
@@ -221,12 +229,15 @@
 <label class="switch"><input type="checkbox" id="chkbtn#<%=i+1%>" onclick="URLStatus(<%=i+1%>)" id="togBtn" <% if(history[i].status=="on") { %>checked<% }%> ><div class="slider round"></div></label>
 <h6>Total Clicks : <%= history[i].count %>  </h6>
 <hr>
+<div style="display:flex; align-items:space-between; justify-content:space-between;">
 <a href="javascript:edit(<%=i+1%>)" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+<button class="sharebtn" onClick="share(<%=i+1%>)" style="width=auto; background:transparent; border:0px; color:#2979ff;"><i class="fa fa-share" aria-hidden="true"></i>  </button>
+<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
 <form action="/Edit" method="post" hidden>
 <input type="text" name="token" value="<%= history[i]._id %>" hidden />
 <input type="submit" id="sbtn#<%=i+1%>" hidden>
 </form>
+</div>
 </div>
 <% } else {  %>
 <% if(j==10) {%> <div id="morelinks" style="display:none"><% } %>
@@ -239,12 +250,15 @@
 
 <h6>Total Clicks : <%= history[i].count %>  </h6>
 <hr>
+<div style="display:flex; align-items:space-between; justify-content:space-between;">
 <a href="javascript:edit(<%=i+1%>)" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" style="float : right"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
+<button class="sharebtn" onClick="share(<%=i+1%>)" style="width=auto; background:transparent; border:0px; color:#2979ff;"><i class="fa fa-share" aria-hidden="true"></i>  </button>
+<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
 <form action="/Edit" method="post" hidden>
 <input type="text" name="token" value="<%= history[i]._id %>" hidden />
 <input type="submit" id="sbtn#<%=i+1%>" hidden>
 </form>
+</div>
 </div>
 <% } %>
 
@@ -258,6 +272,23 @@
 
 </body>
 <script>
+	
+	function share(a)
+	{
+		var text=document.getElementById("shorturlcopy#"+a);
+	  if (navigator.share) {
+		navigator.share({
+		  title: 'WebShare API Demo',
+		  url: ''+text
+		}).then(() => {
+		  console.log('Thanks for sharing!');
+		})
+		.catch(console.error);
+	  } else {
+		// fallback
+	  }
+	}
+	
   function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
