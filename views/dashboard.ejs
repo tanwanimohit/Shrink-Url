@@ -275,7 +275,7 @@
 	
 	function share(a)
 	{
-		var text=document.getElementById("shorturlcopy#"+a);
+		var text=document.getElementById("shorturlcopy#"+a).value;
 	  if (navigator.share) {
 		navigator.share({
 		  title: 'WebShare API Demo',
