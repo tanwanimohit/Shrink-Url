@@ -40,3 +40,9 @@ Replace some these lines..
 - Replace Your Mongo DB URL on `38 Line in index.js`
 - Replace Your Mongo DB Name on `44 Line in index.js`
 - Replace Client id of your Google Signin on `80 Line in index.js` and `15 Line in views\home.ejs`
+
+## How can you Contribute?
+
+- If you see any Security Flaw / Error Bugs than go ahead make a PR
+- If you have new idea about the Product go ahead raise a new issue.
+- Improve the currently supported features.
