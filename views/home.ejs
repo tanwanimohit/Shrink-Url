@@ -1,269 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <link rel="icon" sizes="192x192" href="media/burl.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-<head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,user-scalable=no"
+    />
+    <meta charset="utf-8" />
+    <meta name="google-signin-scope" content="profile email" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-	<link rel="icon" sizes="192x192" href="media/burl.png">
-	<link rel="manifest" href="manifest.json">
-	<meta name="mobile-web-app-capable" content="yes">
+    <title>TinyForme</title>
+    <style>
+      html,
+      body {
+        min-height: 100%; /* Needed for container's min-height  */
+      }
 
-<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-<meta charset="utf-8">
-<meta name="google-signin-scope" content="profile email">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap" rel="stylesheet">
-<meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      body {
+        background: url("media/bg.png");
+        background-size: cover;
+        color: white;
+      }
+      a {
+        text-decoration: none;
+      }
+      h1 {
+        font-family: "Luckiest Guy", cursive;
+        font-size: 4.5em;
+        padding: 15px;
+        font-weight: normal;
+      }
 
+      input[type="text"] {
+        border: 0px;
+        width: 40%;
+        min-height: 4%;
+        margin: 5px 0px;
+        text-align: center;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 1.3em;
+        min-width: 300px;
+        text-decoration: none;
+      }
 
-<title>TinyForme</title>
-<style>
-html,body {
-    min-height: 100%; /* Needed for container's min-height  */  
-}
+      input[type="button"] {
+        background: #002666;
+        border: 0px #002666;
+        color: white;
+        min-height: 4%;
+        margin: 5px 0px;
+        width: 100px;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 1.3em;
+      }
 
-body
-{
-background : url('media/bg.png');
-background-size:cover;
-color:white;
-}
-a
-{
-text-decoration:none;
-}
-h1
-{
-font-family: 'Luckiest Guy', cursive;
-font-size:4.5em;
-padding : 15px;
-font-weight:normal;
-}
+      h2 {
+        font-family: "Noto Sans JP", sans-serif;
+        margin: 30px;
+      }
 
-input[type='text']
-{
-border:0px;
-width:40%;
-min-height:4%;
-margin:5px 0px;
-text-align:center;
-font-family: 'Noto Sans JP', sans-serif;
-font-size:1.3em;
-min-width:300px;
-text-decoration:none;
-}
+      @media only screen and (max-width: 470px) {
+        a {
+          text-decoration: none;
+        }
+        h1 {
+          font-size: 3em;
+        }
+        input[type="text"] {
+          height: 7%;
+        }
+        input[type="button"] {
+          height: 7%;
+        }
 
-input[type='button']
-{
-background:#002666;
-border:0px #002666;
-color:white;
-min-height:4%;
-margin:5px 0px;
-width:100px;
-font-family: 'Noto Sans JP', sans-serif;
-font-size:1.3em;
-}
+        h2 {
+          font-size: 1.2em;
+        }
+        #long {
+          margin: 0px 5px;
+        }
+      }
 
-h2
-{
-font-family: 'Noto Sans JP', sans-serif;
-margin:30px;
-}
+      .footer {
+        font-family: sans-serif;
+        position: fixed;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .footer p {
+        margin: 0px;
+      }
 
-@media only screen and (max-width: 470px) {
-a
-{
-text-decoration:none;
-}
-h1
-{
-font-size:3em;
+      @media only screen and (max-height: 400px) {
+        .footer {
+          display: none;
+        }
+      }
+      #shorturl a {
+        color: white;
+        text-decoration: none;
+      }
+      #shorturl a:href {
+        color: white;
+        text-decoration: none;
+      }
+      #copybtn {
+        margin: 0px;
+        font-size: 12px;
+        min-width: 0px;
+        width: auto;
+      }
+      .flink {
+        color: white;
+        text-decoration: none;
+      }
+      .flink:hover {
+        text-decoration: none;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>tiny For Me!</h1>
+      <form>
+        <input
+          type="text"
+          id="long"
+          placeholder="Enter Long URL Here..."
+          autocomplete="off"
+        />
+        <input type="button" onclick="shortURL()" value="Tiny it!" />
+        <input
+          type="text"
+          id="shorturlcopy"
+          style="min-width: 0px; width: 0.1px; background: #2979ff"
+          readonly
+        />
+        <p id="shorturl"></p>
+      </form>
+      <h2>To get Custom Links and much more facilities please</h2>
+      <div style="max-width: 240px">
+        <div
+          class="g_id_signin"
+          data-client_id="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"
+          data-type="standard"
+          width="240px"
+          data-callback="onSuccess"
+        ></div>
+        <div
+          id="g_id_onload"
+          data-client_id="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-auto_select="true"
+          data-itp_support="true"
+          data-callback="onSuccess"
+          data-login_uri="https://www.tinyfor.me/"
+        ></div>
+      </div>
 
-}
-input[type='text']
-{
-height:7%;
+      <div class="footer">
+        <p>A <b>Cuttopoint Inc.</b>Venture</p>
+        <p>
+          <a class="flink" href="/Terms">Terms</a> |
+          <a class="flink" href="/Privacy">Privacy</a> |
+          <a class="flink" href="/API">API</a>
+        </p>
+      </div>
+      <script src="https://accounts.google.com/gsi/client" async defer></script>
+      <script>
+        function onFailure(error) {
+          console.log(error);
+        }
 
-}
-input[type='button']
-{
+        function onSuccess(googleUser) {
 
-height:7%;
-}
+          var id_token = googleUser.credential;
+          $.post("/verifylogin", { token: id_token }, function (data, status) {
+            if (data == "error") {
+              alert("Something Went Wrong !");
+            } else if (data == "success") {
+              window.open("/Dashboard", "_self");
+            }
+          });
+        }
 
-h2
-{
-font-size:1.2em;	
-}
-#long
-{
-margin:0px 5px;
-}
+        function shortURL() {
+          var longurl = document.getElementById("long").value;
 
-}
+          $.post("api/shorturl", { longurl: longurl }, function (data, status) {
+            document.getElementById("shorturlcopy").value = " ";
 
-.footer
-{
-font-family: sans-serif;
-position : fixed;
-bottom:5px;
-left: 0;
-right: 0;
-margin-left: auto;
-margin-right: auto;
-}
-.footer p
-{
-margin:0px;
-}
+            if (data == "error") {
+              alert("Something Went Wrong !");
+            } else {
+              if (
+                data != "Ahhh! This Custom URL is already Occupied :(" &&
+                data != "Please Enter a vaild URL." &&
+                data != "This URL is not allowed."
+              ) {
+                document.getElementById("shorturl").innerHTML =
+                  "Shrinked URL : <a style='font-color:white; text-decoration:none;' href='" +
+                  data +
+                  "' >" +
+                  data +
+                  "</a> " +
+                  " <input type='button' id='copybtn' onClick='Copy()' data-toggle='tooltip' title='Copied!' value='Copy'/>";
+                document.getElementById("shorturlcopy").value = data;
+              } else {
+                document.getElementById("shorturl").innerHTML = data;
+              }
+            }
+          });
+        }
 
-@media only screen and (max-height: 400px) {
-.footer
-{
-display:none;
-}
+        function Copy() {
+          var copyText = document.getElementById("shorturlcopy");
+          copyText.select();
+          document.execCommand("copy");
+          document.getElementById("copybtn").value = "Copied";
+        }
 
-}
-#shorturl a
-{
-	color:white;
-	text-decoration:none;
-}
-#shorturl a:href
-{
-	color:white;
-	text-decoration:none;
-}
-#copybtn
-	{
-		
-		margin:0px;
-		font-size:12px;
-		min-width:0px;
-		width:auto;
-	}
-	.flink
-	{
-		color:white;
-		text-decoration:none;
-	}
-	.flink:hover
-	{
-		text-decoration:none;
-		color:white;
-	}
-</style>
-</head>
-<body>
-<center><h1>tiny For Me!</h1>
-<form>
-<input type="text" id="long" placeholder="Enter Long URL Here..." autocomplete="off" />
-<input type="button" onclick="shortURL()" value="Tiny it!" />
-<input type="text" id="shorturlcopy"  style="min-width:0px; width:0.1px; background:#2979ff;" readonly/>
-<p id="shorturl"></p>
-</form>
-<h2> To get Custom Links and much more facilties please</h2>
-<div id="my-signin2"></div>
-
-
-<div class="footer">
-<p>A <b>Cuttopoint Inc.</b>Venture </p>
-<p><a class="flink" href="/Terms">Terms</a> | <a class="flink" href="/Privacy">Privacy</a> | <a class="flink" href="/API">API</a> </p>
-</div>
-<script>
-	function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'light',
-        'onsuccess': onSuccess,
-        'onFailure': onFailure
-      });
-	  }
-	  
-	  function onFailure(error) {
-		  console.log(error);
-	  }
-	  
-	  function onSuccess(googleUser) {
-      
-		  var id_token = googleUser.getAuthResponse().id_token;
-		  $.post('/verifylogin',{token:id_token},function(data,status){
-					
-					if(data=="error")
-					{
-						alert("Something Went Wrong !");
-					}
-					else if(data=="success")
-					{
-						window.open("/Dashboard", '_self');
-					}
-			}
-			);
-		}
-		
-	function shortURL()
-	{
-		
-		var longurl=document.getElementById("long").value;
-		
-		$.post('api/shorturl',{longurl:longurl},function(data,status){
-						
-					document.getElementById("shorturlcopy").value=" ";
-
-					if(data=="error")
-					{	
-						alert("Something Went Wrong !");
-					}
-					else
-					{
-						
-						if(data!="Ahhh! This Custom URL is already Occupied :(" && data!="Please Enter a vaild URL." && data!="This URL is not allowed.")
-						{
-							
-							
-							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a> "+" <input type='button' id='copybtn' onClick='Copy()' data-toggle='tooltip' title='Copied!' value='Copy'/>";
-							document.getElementById("shorturlcopy").value=data;
-						
-						}
-						else
-						{
-							document.getElementById("shorturl").innerHTML=data;
-						}
-					}
-			}
-			);
-	}
-	
-	function Copy()
-	{
-	
-		var copyText = document.getElementById("shorturlcopy");
-		copyText.select();
-		document.execCommand("copy");
-		document.getElementById("copybtn").value="Copied";
-	}
-	
-	if ('serviceWorker' in navigator) {
-		console.log("Will the service worker register?");
-		navigator.serviceWorker.register('service-worker.js')
-		  .then(function(reg){
-			console.log("Yes, it did.");
-		 }).catch(function(err) {
-			console.log("No it didn't. This happened:", err)
-		});
-		self.addEventListener('fetch', function(event) {});
-		
-	}
-	
-</script>
-
-</center>
-</body>
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        if ("serviceWorker" in navigator) {
+          console.log("Will the service worker register?");
+          navigator.serviceWorker
+            .register("service-worker.js")
+            .then(function (reg) {
+              console.log("Yes, it did.");
+            })
+            .catch(function (err) {
+              console.log("No it didn't. This happened:", err);
+            });
+          self.addEventListener("fetch", function (event) {});
+        }
+      </script>
+    </center>
+  </body>
 </html>

@@ -1,422 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Dashboard - Tinyforme</title>
-  
-  <link rel="icon" sizes="192x192" href="media/burl.png">
-  <link rel="manifest" href="manifest.json">
-  <meta name="mobile-web-app-capable" content="yes">
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-  <script src="https://use.fontawesome.com/751809a74e.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap" rel="stylesheet">
-  <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"> 
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="toggle.css">
-  <style>
-	a:link, a:visited {
-		color:white;
-	}
-	.bg-custom
-	{
-		background-color:#2979ff;
-	}
-	.sharebtn
-	{
-		display:none;
-	}
-	.bg-image
-	{
-		background : url('media/bg2.png');
-		background-size:cover;
-	}
-	.headfont
-	{
-		font-family: 'Luckiest Guy';
-	}
-	form
-	{
-		padding:25px;
-		color:white;
-		
-	}
-	form h4
-	{
-	
-		color:white;
-		display:inline-block;
-	}
-	input[type='text']
-	{
-	border:0px;
-	width:40%;
-	min-height:4%;
-	margin:10px 0px;
-	text-align:center;
-	font-family: 'Noto Sans JP', sans-serif;
-	font-size:1.3em;
-	min-width:280px;
-	text-decoration:none;
-	}
+  <head>
+    <title>Dashboard - Tinyforme</title>
 
-	input[type='button']
-	{
-	background:#002666;
-	border:0px #002666;
-	color:white;
-	min-height:4%;
-	margin:10px 0px;
-	width:150px;
-	font-family: 'Noto Sans JP', sans-serif;
-	font-size:1.3em;
-	}
-	.mainbody
-	{
-		height:auto;
-		border-radius: 0px 0px 10px 10px;
+    <link rel="icon" sizes="192x192" href="media/burl.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-	}
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,user-scalable=no"
+    />
+    <script src="https://use.fontawesome.com/751809a74e.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="stylesheet" href="toggle.css" />
+    <style>
+      a:link,
+      a:visited {
+        color: white;
+      }
+      .bg-custom {
+        background-color: #2979ff;
+      }
+      .sharebtn {
+        display: none;
+      }
+      .bg-image {
+        background: url("media/bg2.png");
+        background-size: cover;
+      }
+      .headfont {
+        font-family: "Luckiest Guy";
+      }
+      form {
+        padding: 25px;
+        color: white;
+      }
+      form h4 {
+        color: white;
+        display: inline-block;
+      }
+      input[type="text"] {
+        border: 0px;
+        width: 40%;
+        min-height: 4%;
+        margin: 10px 0px;
+        text-align: center;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 1.3em;
+        min-width: 280px;
+        text-decoration: none;
+      }
 
-	@media only screen and (max-width: 470px) {
+      input[type="button"] {
+        background: #002666;
+        border: 0px #002666;
+        color: white;
+        min-height: 4%;
+        margin: 10px 0px;
+        width: 150px;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 1.3em;
+      }
+      .mainbody {
+        height: auto;
+        border-radius: 0px 0px 10px 10px;
+      }
 
-	.sharebtn
-	{
-	 display : block;
-	}
-	
-	input[type='text']
-	{
-	min-height:7%;
-	font-size:1em;
-	}
-	input[type='button']
-	{
+      @media only screen and (max-width: 470px) {
+        .sharebtn {
+          display: block;
+        }
 
-	height:7%;
-	}
-	form h4
-	{
-		font-size:1.2em;	
-	}
-	
-	.logos	
-	{
-	font-size:2em;
-	}
-	}
-	.logos	
-	{
-	color:white;
-	font-family: 'Luckiest Guy', cursive;
-	font-size:2.5em;
+        input[type="text"] {
+          min-height: 7%;
+          font-size: 1em;
+        }
+        input[type="button"] {
+          height: 7%;
+        }
+        form h4 {
+          font-size: 1.2em;
+        }
 
-	font-weight:normal;
+        .logos {
+          font-size: 2em;
+        }
+      }
+      .logos {
+        color: white;
+        font-family: "Luckiest Guy", cursive;
+        font-size: 2.5em;
 
-	}
-	#copybtn
-	{
-		
-		margin:0px;
-		font-size:12px;
-		min-width:0px;
-		width:auto;
-	}
-	.History
-	{
-		box-shadow:0 0 16px 0 rgba(12,12,13,.1);
-		min-height:100px;
-		border-radius:5px;
-		padding : 20px;
-		margin-bottom:20px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		
-	}
-	.History img
-	{
-		margin : 5px 10px 0px 10px;
-		float : left;
-	}
-	.History h5
-	{
-		margin-bottom:0px;
-		padding-right:20px;
-		font-weight:normal;
-		overflow: hidden;
-		 text-overflow:ellipsis;
-	}
-	.History h6
-	{
-		margin:10px;
-		color:#adadad;
-	}
-	.History a
-	{
-		color : #2979ff;
-		font-weight:bold;
-		margin:0px 10px;
-		font-size:1.1em;
-		text-decoration: none; 
-	}
-	
-	.del
-	{
-		float:right;
-	}
-	.murl
-	{
-	color : #2979ff;
-	}
-	a:hover {
-		cursor:pointer;
-	}
-  </style>
-</head>
-<body  onload="startApp()">
+        font-weight: normal;
+      }
+      #copybtn {
+        margin: 0px;
+        font-size: 12px;
+        min-width: 0px;
+        width: auto;
+      }
+      .History {
+        box-shadow: 0 0 16px 0 rgba(12, 12, 13, 0.1);
+        min-height: 100px;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .History img {
+        margin: 5px 10px 0px 10px;
+        float: left;
+      }
+      .History h5 {
+        margin-bottom: 0px;
+        padding-right: 20px;
+        font-weight: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .History h6 {
+        margin: 10px;
+        color: #adadad;
+      }
+      .History a {
+        color: #2979ff;
+        font-weight: bold;
+        margin: 0px 10px;
+        font-size: 1.1em;
+        text-decoration: none;
+      }
 
-<nav class="navbar navbar-expand-sm bg-custom navbar-dark">
-  <a class="navbar-brand headfont" style="margin-top:5px;" href="#" ><h4>Tinyforme!</h4></a>
-  
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="border:0px;">
-        <img src="<%= data.picture %>" height="30" class="rounded-circle"/> 
-  </button>
-	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-	
-		<ul class="navbar-nav ml-auto d-none d-md-block">
-		
-		  <li class="nav-item" style="margin-top:5px;">
-				<a class="nav-link" href="#" style="color:white"><img src="<%= data.picture %>" height="30" class="rounded-circle"/> <%= data.name %> &nbsp; |</a>
-		  </li>
-		
-		</ul>
-		<ul class="navbar-nav ">
-		
-		  <li class="nav-item">
-				<a class="nav-link" href="javascript:signOut()" style="color:white" >Logout</a>
-		  </li>
-		
-		</ul>
-	</div>
-</nav>
-<div class="mainbody bg-image text-center">
-<h1 class="logos">Hello, <%= data.name %></h1>
- <form>
-<input type="text" id="long" placeholder="Enter Long URL Here..." autocomplete="off"/><br>
-<h4>https://tinyfor.me/ &nbsp;</h4><input type="text" id="short" style="width:20%; min-width:130px" id="short" placeholder="Custom URL " /><br>
-<input type="button" onclick="shortURL()" value="Tiny it!" />
-<input type="text" id="shorturlcopy" style="min-width:0px; width:0.1px; background:#2979ff;" readonly/>
-<p id="shorturl">If you don't want to create custom url just leave the other box empty.
-</p>
-</form>
+      .del {
+        float: right;
+      }
+      .murl {
+        color: #2979ff;
+      }
+      a:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-custom navbar-dark">
+      <a class="navbar-brand headfont" style="margin-top: 5px" href="#"
+        ><h4>Tinyforme!</h4></a
+      >
 
-</div>
-<div class="container col-sm-10" style="margin-bottom:15px; margin-top:35px;">
-<h5 style="font-family: 'Noto Sans JP', sans-serif;">Recent Shorten Links</h5>
-<hr>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+        style="border: 0px"
+      >
+        <img src="<%= data.picture %>" height="30" class="rounded-circle" />
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto d-none d-md-block">
+          <li class="nav-item" style="margin-top: 5px">
+            <a class="nav-link" href="#" style="color: white"
+              ><img
+                src="<%= data.picture %>"
+                height="30"
+                class="rounded-circle"
+              />
+              <%= data.name %> &nbsp; |</a
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:signOut()" style="color: white"
+              >Logout</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="mainbody bg-image text-center">
+      <h1 class="logos">Hello, <%= data.name %></h1>
+      <form>
+        <input
+          type="text"
+          id="long"
+          placeholder="Enter Long URL Here..."
+          autocomplete="off"
+        /><br />
+        <h4>https://tinyfor.me/ &nbsp;</h4>
+        <input
+          type="text"
+          id="short"
+          style="width: 20%; min-width: 130px"
+          id="short"
+          placeholder="Custom URL "
+        /><br />
+        <input type="button" onclick="shortURL()" value="Tiny it!" />
+        <input
+          type="text"
+          id="shorturlcopy"
+          style="min-width: 0px; width: 0.1px; background: #2979ff"
+          readonly
+        />
+        <p id="shorturl">
+          If you don't want to create custom url just leave the other box empty.
+        </p>
+      </form>
+    </div>
+    <div
+      class="container col-sm-10"
+      style="margin-bottom: 15px; margin-top: 35px"
+    >
+      <h5 style="font-family: 'Noto Sans JP', sans-serif">
+        Recent Shorten Links
+      </h5>
+      <hr />
 
-<% var j=0; %>
-<% if(history.length==0) { %> <center> Ahh! No History Found ! Don't you have any links to short :P </center> <% } %>
-<% for(var i=history.length-1; i>=0; i--) { %>
-<% if(j<=9) { %>
-<div class="History" id="#<%=i+1%>">
-<input type="text" id="token#<%=i+1%>" name="token" value="<%= history[i]._id %>" hidden autocomplete="off"/>
-<input type="text" id="shorturlcopy#<%=i+1%>" style="min-width:0px; width:0.1px; background:#fff; float:left;" value="https://tinyfor.me/<%= history[i].linkkey %>" readonly/>
-<img src="media/url.png" height="40"/>
-<h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5><h5><%= history[i].url %></h5>
-<label class="switch"><input type="checkbox" id="chkbtn#<%=i+1%>" onclick="URLStatus(<%=i+1%>)" id="togBtn" <% if(history[i].status=="on") { %>checked<% }%> ><div class="slider round"></div></label>
-<h6>Total Clicks : <%= history[i].count %>  </h6>
-<hr>
-<div style="display:flex; align-items:space-between; justify-content:space-between;">
-<a href="javascript:edit(<%=i+1%>)" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-<button class="sharebtn" onClick="share(<%=i+1%>)" style="width=auto; background:transparent; border:0px; color:#2979ff;"><i class="fa fa-share" aria-hidden="true"></i>  </button>
-<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
-<form action="/Edit" method="post" hidden>
-<input type="text" name="token" value="<%= history[i]._id %>" hidden />
-<input type="submit" id="sbtn#<%=i+1%>" hidden>
-</form>
-</div>
-</div>
-<% } else {  %>
-<% if(j==10) {%> <div id="morelinks" style="display:none"><% } %>
-<div class="History" id="#<%=i+1%>">
-<input type="text" id="token#<%=i+1%>" name="token" value="<%= history[i]._id %>" hidden autocomplete="off"/>
-<input type="text" id="shorturlcopy#<%=i+1%>" style="min-width:0px; width:0.1px; background:#fff; float:left;" value="https://tinyfor.me/<%= history[i].linkkey %>" readonly/>
-<img src="media/url.png" height="40"/>
-<h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %> </h5><h5><%= history[i].url %></h5>
-<label class="switch"><input type="checkbox" id="chkbtn#<%=i+1%>" onclick="URLStatus(<%=i+1%>)" id="togBtn" <% if(history[i].status=="on") { %>checked<% }%> ><div class="slider round"></div></label>
+      <% var j=0; %> <% if(history.length==0) { %>
+      <center>
+        Ahh! No History Found ! Don't you have any links to short :P
+      </center>
+      <% } %> <% for(var i=history.length-1; i>=0; i--) { %> <% if(j<=9) { %>
+      <div class="History" id="#<%=i+1%>">
+        <input
+          type="text"
+          id="token#<%=i+1%>"
+          name="token"
+          value="<%= history[i]._id %>"
+          hidden
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="shorturlcopy#<%=i+1%>"
+          style="min-width: 0px; width: 0.1px; background: #fff; float: left"
+          value="https://tinyfor.me/<%= history[i].linkkey %>"
+          readonly
+        />
+        <img src="media/url.png" height="40" />
+        <h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %></h5>
+        <h5><%= history[i].url %></h5>
+        <label class="switch"
+          ><input type="checkbox" id="chkbtn#<%=i+1%>"
+          onclick="URLStatus(<%=i+1%>)" id="togBtn" <%
+          if(history[i].status=="on") { %>checked<% }%> >
+          <div class="slider round"></div
+        ></label>
+        <h6>Total Clicks : <%= history[i].count %></h6>
+        <hr />
+        <div
+          style="
+            display: flex;
+            align-items: space-between;
+            justify-content: space-between;
+          "
+        >
+          <a href="javascript:edit(<%=i+1%>)"
+            ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a
+          >
+          <button
+            class="sharebtn"
+            onClick="share(<%=i+1%>)"
+            style="width=auto; background:transparent; border:0px; color:#2979ff;"
+          >
+            <i class="fa fa-share" aria-hidden="true"></i>
+          </button>
+          <a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>"
+            ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy
+          </a>
+          <form action="/Edit" method="post" hidden>
+            <input
+              type="text"
+              name="token"
+              value="<%= history[i]._id %>"
+              hidden
+            />
+            <input type="submit" id="sbtn#<%=i+1%>" hidden />
+          </form>
+        </div>
+      </div>
+      <% } else { %> <% if(j==10) {%>
+      <div id="morelinks" style="display: none">
+        <% } %>
+        <div class="History" id="#<%=i+1%>">
+          <input
+            type="text"
+            id="token#<%=i+1%>"
+            name="token"
+            value="<%= history[i]._id %>"
+            hidden
+            autocomplete="off"
+          />
+          <input
+            type="text"
+            id="shorturlcopy#<%=i+1%>"
+            style="min-width: 0px; width: 0.1px; background: #fff; float: left"
+            value="https://tinyfor.me/<%= history[i].linkkey %>"
+            readonly
+          />
+          <img src="media/url.png" height="40" />
+          <h5 class="murl">https://tinyfor.me/<%= history[i].linkkey %></h5>
+          <h5><%= history[i].url %></h5>
+          <label class="switch"
+            ><input type="checkbox" id="chkbtn#<%=i+1%>"
+            onclick="URLStatus(<%=i+1%>)" id="togBtn" <%
+            if(history[i].status=="on") { %>checked<% }%> >
+            <div class="slider round"></div
+          ></label>
 
-<h6>Total Clicks : <%= history[i].count %>  </h6>
-<hr>
-<div style="display:flex; align-items:space-between; justify-content:space-between;">
-<a href="javascript:edit(<%=i+1%>)" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-<button class="sharebtn" onClick="share(<%=i+1%>)" style="width=auto; background:transparent; border:0px; color:#2979ff;"><i class="fa fa-share" aria-hidden="true"></i>  </button>
-<a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy </a>
-<form action="/Edit" method="post" hidden>
-<input type="text" name="token" value="<%= history[i]._id %>" hidden />
-<input type="submit" id="sbtn#<%=i+1%>" hidden>
-</form>
-</div>
-</div>
-<% } %>
+          <h6>Total Clicks : <%= history[i].count %></h6>
+          <hr />
+          <div
+            style="
+              display: flex;
+              align-items: space-between;
+              justify-content: space-between;
+            "
+          >
+            <a href="javascript:edit(<%=i+1%>)"
+              ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a
+            >
+            <button
+              class="sharebtn"
+              onClick="share(<%=i+1%>)"
+              style="width=auto; background:transparent; border:0px; color:#2979ff;"
+            >
+              <i class="fa fa-share" aria-hidden="true"></i>
+            </button>
+            <a href="javascript:copyme(<%=i+1%>)" id="btn#<%=i+1%>"
+              ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy
+            </a>
+            <form action="/Edit" method="post" hidden>
+              <input
+                type="text"
+                name="token"
+                value="<%= history[i]._id %>"
+                hidden
+              />
+              <input type="submit" id="sbtn#<%=i+1%>" hidden />
+            </form>
+          </div>
+        </div>
+        <% } %> <% j++ %> <% } %> <% if(j>10) { %>
+      </div>
+      <center>
+        <input
+          type="button"
+          value="Load More"
+          class="loadmore"
+          id="morebtn"
+          onclick="loadmore()"
+          style="background: #2979ff; border-radius: 5px"
+        />
+      </center>
+      <% } %>
+    </div>
+  </body>
+  <script>
+    function share(a) {
+      var text = document.getElementById("shorturlcopy#" + a).value;
+      if (navigator.share) {
+        navigator
+          .share({
+            title: "WebShare API Demo",
+            url: "" + text,
+          })
+          .then(() => {
+            console.log("Thanks for sharing!");
+          })
+          .catch(console.error);
+      } else {
+        // fallback
+      }
+    }
 
-<% j++ %>
-<% } %>
-<% if(j>10) { %></div>
-<center><input type="button" value="Load More" class="loadmore" id="morebtn" onclick="loadmore()" style="background:#2979ff; border-radius:5px;"/></center>
-<% } %>
-</div>
+    function signOut() {
+      google.accounts.id.disableAutoSelect();
+	  window.open("/logout", "_self");
+    }
 
+    function shortURL() {
+      var longurl = document.getElementById("long").value;
+      var shorturl = document.getElementById("short").value;
+      $.post(
+        "/shorturl",
+        { longurl: longurl, shorturl: shorturl },
+        function (data, status) {
+          document.getElementById("shorturlcopy").value = " ";
 
-</body>
-<script>
-	
-	function share(a)
-	{
-		var text=document.getElementById("shorturlcopy#"+a).value;
-	  if (navigator.share) {
-		navigator.share({
-		  title: 'WebShare API Demo',
-		  url: ''+text
-		}).then(() => {
-		  console.log('Thanks for sharing!');
-		})
-		.catch(console.error);
-	  } else {
-		// fallback
-	  }
-	}
-	
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      window.open("/logout", '_self');
-    });
-	
-  }
-  
-	function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark'
-      });
-	}
-	  
-	  
-	var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      
-    });
-	};
-  function shortURL()
-	{
-		
-		var longurl=document.getElementById("long").value;
-		var shorturl=document.getElementById("short").value;
-		$.post('/shorturl',{longurl:longurl,shorturl:shorturl},function(data,status){
-						
-					document.getElementById("shorturlcopy").value=" ";
+          if (data == "error") {
+            alert("Something Went Wrong !");
+          } else {
+            if (
+              data != "Ahhh! This Custom URL is already Occupied :(" &&
+              data != "Please Enter a vaild URL." &&
+              data != "This URL is not allowed."
+            ) {
+              document.getElementById("shorturl").innerHTML =
+                "Shrinked URL : <a style='font-color:white; text-decoration:none;' href='" +
+                data +
+                "' >" +
+                data +
+                "</a> " +
+                " <input type='button' id='copybtn' onClick='Copy()' data-toggle='tooltip' title='Copied!' value='Copy'/>";
+              document.getElementById("shorturlcopy").value = data;
+            } else {
+              document.getElementById("shorturl").innerHTML = data;
+            }
+          }
+        }
+      );
+    }
 
-					if(data=="error")
-					{	
-						alert("Something Went Wrong !");
-					}
-					else
-					{
-						
-						if(data!="Ahhh! This Custom URL is already Occupied :(" && data!="Please Enter a vaild URL." && data!="This URL is not allowed.")
-						{
-							
-							
-							document.getElementById("shorturl").innerHTML="Shrinked URL : <a style='font-color:white; text-decoration:none;' href='"+data+"' >"+data+"</a> "+" <input type='button' id='copybtn' onClick='Copy()' data-toggle='tooltip' title='Copied!' value='Copy'/>";
-							document.getElementById("shorturlcopy").value=data;
-						
-						}
-						else
-						{
-							document.getElementById("shorturl").innerHTML=data;
-						}
-					}
-			}
-			);
-	}
-	
-	function Copy()
-	{
-	
-		var copyText = document.getElementById("shorturlcopy");
-		copyText.select();
-		document.execCommand("copy");
-		document.getElementById("copybtn").value="Copied";
-	}
-	
-	function copyme(a)
-	{
-	
-		var copyText = document.getElementById("shorturlcopy#"+a);
-		copyText.select();
-		document.getElementById("btn#"+a).innerHTML="<i class='fa fa-clipboard' aria-hidden='true'></i> Copied";
-		document.execCommand("copy");
-	}
-	
-	function edit(a)
-	{
-		document.getElementById("sbtn#"+a).click();
-	}
-	
-	function loadmore()
-	{
-		var btn=document.getElementById("morebtn");
-		var link=document.getElementById("morelinks");
-		
-		link.style="display:block;";
-		btn.style="display:none";
-	}
-	
-	if ('serviceWorker' in navigator) {
-		console.log("Will the service worker register?");
-		navigator.serviceWorker.register('service-worker.js')
-		  .then(function(reg){
-			console.log("Yes, it did.");
-		 }).catch(function(err) {
-			console.log("No it didn't. This happened:", err)
-		});
-		self.addEventListener('fetch', function(event) {});
-		
-	}
-	
-	function URLStatus(a) {
-	var temp=document.getElementById("chkbtn#"+a).checked;
-	var token=document.getElementById("token#"+a).value;
-		if(temp)
-		{
-			$.post('/UpdateStatus',{token:token,status:"on"},function(data,status){
-				
-			}
-			);
-		}		
-		else
-		{
-			$.post('/UpdateStatus',{token:token,status:"off"},function(data,status){
-				
-			}
-			);
-		}	
-	}
-	
-</script>
+    function Copy() {
+      var copyText = document.getElementById("shorturlcopy");
+      copyText.select();
+      document.execCommand("copy");
+      document.getElementById("copybtn").value = "Copied";
+    }
+
+    function copyme(a) {
+      var copyText = document.getElementById("shorturlcopy#" + a);
+      copyText.select();
+      document.getElementById("btn#" + a).innerHTML =
+        "<i class='fa fa-clipboard' aria-hidden='true'></i> Copied";
+      document.execCommand("copy");
+    }
+
+    function edit(a) {
+      document.getElementById("sbtn#" + a).click();
+    }
+
+    function loadmore() {
+      var btn = document.getElementById("morebtn");
+      var link = document.getElementById("morelinks");
+
+      link.style = "display:block;";
+      btn.style = "display:none";
+    }
+
+    if ("serviceWorker" in navigator) {
+      console.log("Will the service worker register?");
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .then(function (reg) {
+          console.log("Yes, it did.");
+        })
+        .catch(function (err) {
+          console.log("No it didn't. This happened:", err);
+        });
+      self.addEventListener("fetch", function (event) {});
+    }
+
+    function URLStatus(a) {
+      var temp = document.getElementById("chkbtn#" + a).checked;
+      var token = document.getElementById("token#" + a).value;
+      if (temp) {
+        $.post(
+          "/UpdateStatus",
+          { token: token, status: "on" },
+          function (data, status) {}
+        );
+      } else {
+        $.post(
+          "/UpdateStatus",
+          { token: token, status: "off" },
+          function (data, status) {}
+        );
+      }
+    }
+  </script>
 </html>

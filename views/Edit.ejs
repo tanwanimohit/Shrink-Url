@@ -12,8 +12,6 @@
   <script src="https://use.fontawesome.com/751809a74e.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Noto+Sans+JP&display=swap" rel="stylesheet">
-  <meta name="google-signin-client_id" content="197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com"> 
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -190,7 +188,7 @@ font-weight:normal;
 	}
   </style>
 </head>
-<body  onload="startApp()">
+<body>
 
 <center><h1>tiny For Me!</h1>
 
@@ -205,37 +203,5 @@ font-weight:normal;
 </form>
 <a href="https://tinyfor.me"> <p> Back to Dashboard </p> </a>
 <script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      window.open("/logout", '_self');
-    });
-	
-  }
-  
-	function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark'
-      });
-	}
-	  
-	  
-	var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '197776745891-adorjvma9j9k8l4t9r70hul5q7776lfg.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      
-    });
-	};
-  
 </script>
 </html>
